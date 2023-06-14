@@ -3,6 +3,7 @@ import { styled, Button as MuiButton } from "@mui/material";
 
 const Button = ({
     onClick,
+    txcolor = "primary",
     bgcolor = "primary",
     borderradius = "30px",
     disabled,
@@ -14,6 +15,7 @@ const Button = ({
 }) => {
     return (
         <MyButton
+            txcolor={txcolor}
             bgcolor={bgcolor}
             borderradius={borderradius}
             disabled={disabled}
@@ -47,7 +49,14 @@ const MyButton = styled(MuiButton)((props) => ({
             : props.bgcolor === "white"
             ? "var(--palette-06)"
             : props.bgcolor,
-    border: "2px solid transparent",
+    border:
+        props.txcolor === "primary"
+            ? "2px solid var(--palette-01)"
+            : props.txcolor === "secondary"
+            ? "2px solid var(--palette-02)"
+            : props.txcolor === "white"
+            ? "2px solid var(--palette-06)"
+            : `2px solid ${props.txcolor}`,
     fontFamily: "Nunito",
     "&:hover": {
         backgroundColor: "transparent",
