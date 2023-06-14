@@ -1,0 +1,17 @@
+:root {
+    --palette-01: #884a39;
+    --palette-02: #c38154;
+    --palette-03: #ffc26f;
+    --palette-04: #f9e0bb;
+    --palette-05: #f0f0f0;
+    --palette-06: #fcfcfc;
+    --text-h1: 64px;
+    --text-h2: 50px;
+    --text-h3: 40px;
+    --text-h4: 32px;
+    --text-h5: 24px;
+    --text-h6: 20px;
+    --text-para: 1rem;
+    --text-small: 12px;
+    --text-tiny: 10px;
+}

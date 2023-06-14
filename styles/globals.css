@@ -29,11 +29,3 @@ a {
 ::-webkit-scrollbar-track {
     background-color: transparent;
 }
-
-:root {
-    --palette-01: #884a39;
-    --palette-02: #c38154;
-    --palette-03: #ffc26f;
-    --palette-04: #f9e0bb;
-    --palette-05: #f0f0f0;
-}

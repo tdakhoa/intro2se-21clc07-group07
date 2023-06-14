@@ -6,138 +6,138 @@ const StyledTypography = styled(MuiTypography)(({ theme, color, size, weight, tr
     textTransform: transform === "uppercase" ? "uppercase" : "none",
     color: color === "primary" ? "var(--palette-01)" : color === "secondary" ? "var(--palette-02)" : color,
     fontSize:
-        size?.lg === "h1"
+        size === "h1"
             ? "var(--text-h1)"
-            : size?.lg === "h2"
+            : size === "h2"
             ? "var(--text-h2)"
-            : size?.lg === "h3"
+            : size === "h3"
             ? "var(--text-h3)"
-            : size?.lg === "h4"
+            : size === "h4"
             ? "var(--text-h4)"
-            : size?.lg === "h5"
+            : size === "h5"
             ? "var(--text-h5)"
-            : size?.lg === "h6"
+            : size === "h6"
             ? "var(--text-h6)"
-            : size?.lg === "p"
+            : size === "p"
             ? "var(--text-para)"
-            : size?.lg === "small"
+            : size === "small"
             ? "var(--text-small)"
-            : size?.lg === "tiny"
+            : size === "tiny"
             ? "var(--text-tiny)"
-            : size?.lg,
+            : size,
     fontWeight:
-        weight?.lg === "extraBold"
+        weight === "extraBold"
             ? 800
-            : weight?.lg === "bold"
+            : weight === "bold"
             ? 700
-            : weight?.lg === "semiBold"
+            : weight === "semiBold"
             ? 600
-            : weight?.lg === "medium"
+            : weight === "medium"
             ? 500
-            : weight?.lg === "regular"
+            : weight === "regular"
             ? 400
-            : weight?.lg === "light"
+            : weight === "light"
             ? 300
             : 300,
     textAlign:
-        align?.lg == "left"
+        align === "left"
             ? "left"
-            : align?.lg == "center"
+            : align === "center"
             ? "center"
-            : align?.lg == "right"
+            : align === "right"
             ? "right"
-            : align?.lg == "justify"
+            : align === "justify"
             ? "justify"
             : "inherit",
     [theme.breakpoints.down("lg")]: {
         fontSize:
-            size?.md === "h1"
+            size === "h1"
                 ? "var(--text-h1)"
-                : size?.md === "h2"
+                : size === "h2"
                 ? "var(--text-h2)"
-                : size?.md === "h3"
+                : size === "h3"
                 ? "var(--text-h3)"
-                : size?.md === "h4"
+                : size === "h4"
                 ? "var(--text-h4)"
-                : size?.md === "h5"
+                : size === "h5"
                 ? "var(--text-h5)"
-                : size?.md === "h6"
+                : size === "h6"
                 ? "var(--text-h6)"
-                : size?.md === "p"
+                : size === "p"
                 ? "var(--text-para)"
-                : size?.md === "small"
+                : size === "small"
                 ? "var(--text-small)"
-                : size?.md === "tiny"
+                : size === "tiny"
                 ? "var(--text-tiny)"
                 : "inherit",
         fontWeight:
-            weight?.md === "extraBold"
+            weight === "extraBold"
                 ? 800
-                : weight?.md === "bold"
+                : weight === "bold"
                 ? 700
-                : weight?.md === "semiBold"
+                : weight === "semiBold"
                 ? 600
-                : weight?.md === "medium"
+                : weight === "medium"
                 ? 500
-                : weight?.md === "regular"
+                : weight === "regular"
                 ? 400
-                : weight?.md === "light"
+                : weight === "light"
                 ? 300
                 : "inherit",
         textAlign:
-            align?.md == "left"
+            align === "left"
                 ? "left"
-                : align?.md == "center"
+                : align === "center"
                 ? "center"
-                : align?.md == "right"
+                : align === "right"
                 ? "right"
-                : align?.md == "justify"
+                : align === "justify"
                 ? "justify"
                 : "inherit"
     },
     [theme.breakpoints.down("md")]: {
         fontSize:
-            size?.xs === "h1"
+            size === "h1"
                 ? "var(--text-h1)"
-                : size?.xs === "h2"
+                : size === "h2"
                 ? "var(--text-h2)"
-                : size?.xs === "h3"
+                : size === "h3"
                 ? "var(--text-h3)"
-                : size?.xs === "h4"
+                : size === "h4"
                 ? "var(--text-h4)"
-                : size?.xs === "h5"
+                : size === "h5"
                 ? "var(--text-h5)"
-                : size?.xs === "h6"
+                : size === "h6"
                 ? "var(--text-h6)"
-                : size?.xs === "p"
+                : size === "p"
                 ? "var(--text-para)"
-                : size?.xs === "small"
+                : size === "small"
                 ? "var(--text-small)"
-                : size?.xs === "tiny"
+                : size === "tiny"
                 ? "var(--text-tiny)"
                 : "inherit",
         fontWeight:
-            weight?.xs === "extraBold"
+            weight === "extraBold"
                 ? 800
-                : weight?.xs === "bold"
+                : weight === "bold"
                 ? 700
-                : weight?.xs === "semiBold"
+                : weight === "semiBold"
                 ? 600
-                : weight?.xs === "medium"
+                : weight === "medium"
                 ? 500
-                : weight?.xs === "regular"
+                : weight === "regular"
                 ? 400
-                : weight?.xs === "light"
+                : weight === "light"
                 ? 300
                 : "inherit",
         textAlign:
-            align?.xs == "left"
+            align === "left"
                 ? "left"
-                : align?.xs == "center"
+                : align === "center"
                 ? "center"
-                : align?.xs == "right"
+                : align === "right"
                 ? "right"
-                : align?.xs == "justify"
+                : align === "justify"
                 ? "justify"
                 : "inherit"
     }
@@ -154,22 +154,6 @@ const Typography = ({
     children,
     ...props
 }) => {
-    if (typeof weight === "string") weight = { lg: weight, md: weight, xs: weight };
-    else
-        weight = {
-            lg: weight?.lg || "regular",
-            md: weight?.md || weight?.lg,
-            xs: weight?.xs || weight?.md || weight?.lg
-        };
-    if (typeof size === "string") size = { lg: size, md: size, xs: size };
-    else size = { lg: size?.lg || "p", md: size?.md || size?.lg, xs: size?.xs || size?.md || size?.lg };
-    if (typeof align === "string") align = { lg: align, md: align, xs: align };
-    else
-        align = {
-            lg: align?.lg || "inherit",
-            md: align?.md || align?.lg,
-            xs: align?.xs || align?.md || align?.lg
-        };
     return (
         <StyledTypography
             component={component}
