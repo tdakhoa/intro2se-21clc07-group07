@@ -1,7 +1,6 @@
-import { Box, CardMedia, Grid, styled } from "@mui/material";
-import { ArrowForwardOutlined } from "@mui/icons-material";
+import { CardMedia, Chip, Grid, styled } from "@mui/material";
 
-import { Button, Typography } from "../../../../components";
+import { Typography } from "../../../../components";
 
 const LatestCard = ({ type, title, img, date }) => {
     return (
@@ -11,11 +10,20 @@ const LatestCard = ({ type, title, img, date }) => {
                     <StyledCardMedia image={img} title="" />
                 </Grid>
                 <Grid item xs={5} sx={{ color: "#000" }}>
-                    <Typography component="h1" size="small" weight="bold">
-                        {type}
-                    </Typography>
-                    <Typography component="h1" size="h6" weight="bold">
+                    <Chip
+                        sx={{
+                            color: "var(--palette-01)",
+                            backgroundColor: "var(--palette-04)",
+                            margin: "1rem 0 0.5rem"
+                        }}
+                        label={type}
+                        size="small"
+                    />
+                    <TitleTypo component="h1" size="18px" weight="extraBold">
                         {title}
+                    </TitleTypo>
+                    <Typography component="p" size="tiny" sx={{ marginTop: "0.4rem", color: "#929292" }}>
+                        {date}
                     </Typography>
                 </Grid>
             </GridCard>
@@ -29,7 +37,7 @@ const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
     position: "relative",
     width: "100%",
     height: "100%",
-    borderRadius: "10px"
+    borderRadius: "6px"
 }));
 
 const ArticleBox = styled("div")(({ theme }) => ({
@@ -49,17 +57,24 @@ const GridCard = styled(Grid)(({ theme }) => ({
     backgroundColor: "var(--palette-06)",
     boxSizing: "border-box",
     userSelect: "none",
-    borderRadius: "10px",
-    boxShadow: "8px 8px 20px rgba(40, 165, 203, 0.3)",
+    borderRadius: "8px",
+    boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
     transition: "all 0.3s ease-in-out",
     padding: "0.7rem",
     "&:hover": {
-        cursor: "pointer",
-        backgroundColor: "var(--palette-02)",
-        color: "var(--palette-06)"
+        transform: "scale(1.05)"
     },
     [theme.breakpoints.between("sm", "md")]: {
         height: "28rem",
         width: "20rem"
     }
+}));
+
+const TitleTypo = styled(Typography)(({ theme }) => ({
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitBoxOrient: "vertical",
+    WebkitLineClamp: 2,
+    maxWidth: "100%"
 }));
