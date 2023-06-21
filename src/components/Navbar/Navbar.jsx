@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { styled, Box, AppBar, useScrollTrigger, IconButton, Backdrop, Divider, Fade, Drawer } from "@mui/material";
 import { SearchOutlined, KeyboardArrowUp } from "@mui/icons-material";
 
@@ -10,15 +11,16 @@ import Button from "../Button/Button";
 
 const homeData = [
     { title: "Home", link: "/" },
-    { title: "Podcasts", link: "/" },
-    { title: "Playlists", link: "/" },
-    { title: "Hosts", link: "/" },
-    { title: "About Us", link: "/" },
-    { title: "FAQ", link: "/" }
+    { title: "Podcasts", link: "/podcasts" },
+    { title: "Playlists", link: "/playlists" },
+    { title: "Hosts", link: "/hosts" },
+    { title: "About Us", link: "/aboutus" },
+    { title: "FAQ", link: "/faq" }
 ];
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
+    const { asPath } = useRouter();
     const [prior, setPrior] = useState(false);
     const trigger = useScrollTrigger({
         disableHysteresis: true,
@@ -44,7 +46,7 @@ const NavBar = () => {
 
                 <StyledNavContainer>
                     {homeData.map((item, i) => (
-                        <NavItem trigger={trigger} key={i} content={item}></NavItem>
+                        <NavItem trigger={trigger} key={i} content={item} asPath={asPath}></NavItem>
                     ))}
                     <StyledNavItem trigger={trigger} sx={{ "&:before": { bottom: "-10px" } }}>
                         <SearchOutlined />
@@ -52,25 +54,29 @@ const NavBar = () => {
                 </StyledNavContainer>
 
                 <Box sx={{ display: "flex" }}>
-                    <Button
-                        bgcolor="transparent"
-                        sx={{
-                            borderColor: "transparent",
-                            color: "var(--palette-03)",
-                            "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
-                        }}>
-                        Register
-                    </Button>
-                    <Button
-                        bgcolor="transparent"
-                        sx={{
-                            borderColor: "var(--palette-03)",
-                            color: "var(--palette-03)",
-                            minWidth: "6rem",
-                            "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
-                        }}>
-                        Sign In
-                    </Button>
+                    <Link href="/register">
+                        <Button
+                            bgcolor="transparent"
+                            sx={{
+                                borderColor: "transparent",
+                                color: "var(--palette-03)",
+                                "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
+                            }}>
+                            Register
+                        </Button>
+                    </Link>
+                    <Link href="/signin">
+                        <Button
+                            bgcolor="transparent"
+                            sx={{
+                                borderColor: "var(--palette-03)",
+                                color: "var(--palette-03)",
+                                minWidth: "6rem",
+                                "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
+                            }}>
+                            Sign In
+                        </Button>
+                    </Link>
                 </Box>
             </AppBarDesktop>
 
@@ -84,11 +90,14 @@ const NavBar = () => {
 };
 export default NavBar;
 
-const NavItem = ({ content = { title: "", link: "" }, sx = {}, trigger, ...props }) => {
+const NavItem = ({ content = { title: "", link: "" }, sx = {}, trigger, asPath, ...props }) => {
     return (
         <StyledNavItem trigger={trigger} {...props}>
             <Link href={content.link}>
-                <Typography component="h1" weight="semiBold">
+                <Typography
+                    component="h1"
+                    weight="semiBold"
+                    sx={{ color: asPath === content.link ? "var(--palette-03)" : "#fff" }}>
                     {content.title}
                 </Typography>
             </Link>
@@ -202,8 +211,7 @@ const StyledNavItem = styled(Box, {
         textAlign: "center",
         height: "100%",
         display: "flex",
-        alignItems: "center",
-        color: "#fff"
+        alignItems: "center"
     },
     "&:hover": {
         "& .MuiBox-root": {
