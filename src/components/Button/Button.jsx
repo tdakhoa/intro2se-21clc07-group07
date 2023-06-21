@@ -69,7 +69,7 @@ const MyButton = styled(MuiButton)((props) => ({
                 ? "var(--palette-02)"
                 : props.bgcolor === "white"
                 ? "var(--palette-06)"
-                : props.bgcolor,
+                : "inherit",
         color:
             props.bgcolor === "primary"
                 ? "var(--palette-01)"

@@ -1,6 +1,6 @@
 import React from "react";
 import { styled, Box } from "@mui/material";
-import { ArrowDownwardOutlined } from "@mui/icons-material";
+import { ArrowDownwardOutlined, PlayArrowOutlined } from "@mui/icons-material";
 
 import { Button, Carousel, Typography } from "../../../components";
 
@@ -45,10 +45,11 @@ const Hero = () => {
                         txcolor="white"
                         sx={{
                             marginTop: { xs: "0.4rem", md: "1.4rem" },
-                            padding: { xs: "0.5rem", md: "0.5rem 1rem" }
+                            padding: { xs: "0.5rem", md: "0.5rem 1rem" },
+                            "&:hover": { borderColor: "#fff", color: "#fff" }
                         }}
                         onClick={handleScroll}
-                        endIcon={<ArrowDownwardOutlined sx={{ fontSize: "1.2rem" }} />}>
+                        endIcon={<PlayArrowOutlined sx={{ fontSize: "1.2rem" }} />}>
                         <Typography
                             size="p"
                             color="inherit"

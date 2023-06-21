@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { styled, Box, AppBar, useScrollTrigger, IconButton, Backdrop, Divider, Fade, Drawer } from "@mui/material";
-import { SearchOutlined, MenuOutlined, ChevronRightOutlined, KeyboardArrowUp } from "@mui/icons-material";
+import { SearchOutlined, KeyboardArrowUp } from "@mui/icons-material";
 
 import logo from "../../../public/logo.png";
 import Typography from "../Typography/Typography";
+import Button from "../Button/Button";
 
 const homeData = [
     { title: "Home", link: "/" },
@@ -23,11 +24,6 @@ const NavBar = () => {
         disableHysteresis: true,
         threshold: 200
     });
-
-    const handleToggleOpen = () => {
-        setOpen(open !== true);
-        document.body.style.overflow = !open ? "hidden" : "auto";
-    };
 
     useEffect(() => {
         if (open) setPrior(true);
@@ -54,6 +50,28 @@ const NavBar = () => {
                         <SearchOutlined />
                     </StyledNavItem>
                 </StyledNavContainer>
+
+                <Box sx={{ display: "flex" }}>
+                    <Button
+                        bgcolor="transparent"
+                        sx={{
+                            borderColor: "transparent",
+                            color: "var(--palette-03)",
+                            "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
+                        }}>
+                        Register
+                    </Button>
+                    <Button
+                        bgcolor="transparent"
+                        sx={{
+                            borderColor: "var(--palette-03)",
+                            color: "var(--palette-03)",
+                            minWidth: "6rem",
+                            "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
+                        }}>
+                        Sign In
+                    </Button>
+                </Box>
             </AppBarDesktop>
 
             <Fade in={trigger && !open}>
@@ -91,8 +109,9 @@ const AppBarDesktop = styled(AppBar, {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    boxShadow: trigger ? "4px 4px 25px rgba(0, 0, 0, 0.6)" : "none",
-    backgroundColor: trigger ? "var(--palette-02)" : "transparent",
+    gap: "4rem",
+    boxShadow: trigger ? "4px 4px 25px rgba(255, 255, 255, 0.6)" : "none",
+    backgroundColor: trigger ? "#000" : "transparent",
     zIndex: prior ? "10001" : "10002",
     padding: "1rem 3rem",
     [theme.breakpoints.down("sm")]: {
@@ -106,7 +125,7 @@ const StyledNavContainer = styled(Box)(({ theme }) => ({
     alignItems: "stretch",
     justifyContent: "center",
     width: "100%",
-    padding: "0 3rem",
+    padding: "0 4rem",
     [theme.breakpoints.down("md")]: {
         padding: "2rem 0"
     }
