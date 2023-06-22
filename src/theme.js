@@ -9,7 +9,7 @@ const theme = createTheme({
             main: "#176076"
         },
         error: {
-            main: "#176076"
+            main: "#FF9494"
         },
         mode: "light"
     },
@@ -43,6 +43,15 @@ const theme = createTheme({
         MuiChip: {
             styleOverrides: {
                 root: {}
+            }
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    "& .MuiInputLabel-root": {
+                        color: "rgba(255, 255, 255, 0.70)"
+                    }
+                }
             }
         }
     }

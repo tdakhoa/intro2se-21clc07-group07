@@ -1,17 +1,20 @@
+import { Box, Checkbox, FormControlLabel, FormGroup, Grid, TextField, styled } from "@mui/material";
 import React, { useState } from "react";
-import { Box, Button, Grid, TextField, styled } from "@mui/material";
-import { AccountCircleOutlined, LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Carousel, Typography } from "../../components";
+import { Button, Carousel, Typography } from "../../components";
 import logo from "../../../public/logo.png";
+import { LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
+import { useForm } from "react-hook-form";
 
-const Register = () => {
+const Login = () => {
+    const [error, setError] = useState("");
     const [userData, setUserData] = useState({
+        gender: "",
+        birthday: "",
         username: "",
         email: "",
         password: ""
@@ -19,6 +22,7 @@ const Register = () => {
 
     const {
         register,
+        control,
         handleSubmit,
         formState: { errors }
     } = useForm({ resolver: yupResolver(validationSchema) });
@@ -41,7 +45,7 @@ const Register = () => {
                 </Box>
                 <Box sx={{ width: "65%", textAlign: "center" }}>
                     <Typography component="h6" size="h6" color="white" weight="semiBold">
-                        New journey is waiting for you
+                        Nice to see you again
                     </Typography>
                     <Typography
                         component="h1"
@@ -49,11 +53,11 @@ const Register = () => {
                         color="white"
                         weight="extraBold"
                         sx={{ fontFamily: "Fairplay", lineHeight: "4.5rem" }}>
-                        Nice To Meet You
+                        Welcome Back
                     </Typography>
                     <Typography component="h6" size="h6" color="white" weight="semiBold" sx={{ marginTop: "1.5rem" }}>
-                        Whether you're seeking inspiration, seeking answers to life's big questions, or simply looking
-                        to expand your horizons, our podcast is your gateway to a world of fascinating discoveries.
+                        Whether you've been keeping up with our latest episodes or it's been a while since you last
+                        visited, we're excited to have you back in our podcasting community.
                     </Typography>
                 </Box>
             </Box>
@@ -73,9 +77,9 @@ const Register = () => {
                     color="#fff"
                     align="center"
                     sx={{ fontFamily: "Fairplay", marginBottom: "1rem" }}>
-                    Register
+                    Log In
                 </Typography>
-                <Grid container sx={{ gap: "0.5rem" }}>
+                <Grid container spacing={2}>
                     <Grid container item xs={12}>
                         <Grid
                             item
@@ -85,45 +89,21 @@ const Register = () => {
                                 borderRadius: "8px 0 0 8px",
                                 height: "100%"
                             }}>
-                            <IconBox>
-                                <AccountCircleOutlined />
-                            </IconBox>
-                        </Grid>
-                        <Grid item xs={10.5}>
-                            <StyledTextField
-                                required
-                                label="Enter your username"
-                                variant="outlined"
-                                fullWidth
-                                {...register("username")}
-                                error={errors.username ? true : false}
-                                value={userData.username}
-                                onChange={(e) => {
-                                    setUserData({ ...userData, username: e.target.value });
-                                }}
-                            />
-                        </Grid>
-                    </Grid>
-                    <StyledTypo variant="inherit" color="error">
-                        {errors.username?.message}
-                    </StyledTypo>
-
-                    <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
-                            <IconBox>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%"
+                                }}>
                                 <MailOutlineOutlined />
-                            </IconBox>
+                            </Box>
                         </Grid>
                         <Grid item xs={10.5}>
                             <StyledTextField
                                 required
+                                id="email"
+                                name="email"
                                 label="Enter your email"
                                 variant="outlined"
                                 fullWidth
@@ -135,10 +115,10 @@ const Register = () => {
                                 }}
                             />
                         </Grid>
+                        <StyledTypo variant="inherit" color="error">
+                            {errors.email?.message}
+                        </StyledTypo>
                     </Grid>
-                    <StyledTypo variant="inherit" color="error">
-                        {errors.email?.message}
-                    </StyledTypo>
 
                     <Grid container item xs={12}>
                         <Grid
@@ -149,19 +129,27 @@ const Register = () => {
                                 borderRadius: "8px 0 0 8px",
                                 height: "100%"
                             }}>
-                            <IconBox>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%"
+                                }}>
                                 <LockOutlined />
-                            </IconBox>
+                            </Box>
                         </Grid>
 
                         <Grid item xs={10.5}>
                             <StyledTextField
                                 required
+                                id="password"
+                                name="password"
                                 label="Enter your password"
                                 variant="outlined"
                                 type="password"
                                 fullWidth
-                                {...register("password", { required: true })}
+                                {...register("password")}
                                 error={errors.password ? true : false}
                                 value={userData.password}
                                 onChange={(e) => {
@@ -169,55 +157,58 @@ const Register = () => {
                                 }}
                             />
                         </Grid>
+                        <StyledTypo variant="inherit" color="error">
+                            {errors.password?.message}
+                        </StyledTypo>
                     </Grid>
-                    <StyledTypo variant="inherit" color="error">
-                        {errors.password?.message}
-                    </StyledTypo>
-
-                    <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
-                            <IconBox>
-                                <LockOutlined />
-                            </IconBox>
-                        </Grid>
-                        <Grid item xs={10.5}>
-                            <StyledTextField
-                                required
-                                label="Re-enter your password"
-                                variant="outlined"
-                                type="password"
-                                fullWidth
-                                {...register("confirmPassword")}
-                                error={errors.confirmPassword ? true : false}
-                            />
-                        </Grid>
-                    </Grid>
-                    <StyledTypo variant="inherit" color="error">
-                        {errors.confirmPassword?.message}
-                    </StyledTypo>
 
                     <Grid item xs={12}>
-                        <StyledSignUpButton variant="contained" onClick={handleSubmit(onSubmit)}>
-                            Register
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                color: "rgba(255, 255, 255, 0.70)"
+                            }}>
+                            <FormGroup>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            sx={{
+                                                color: "rgba(255, 255, 255, 0.70)",
+                                                "&.Mui-checked": {
+                                                    color: "rgba(255, 255, 255, 0.70)"
+                                                }
+                                            }}
+                                        />
+                                    }
+                                    label="Remember password?"
+                                />
+                            </FormGroup>
+                            <Typography>Forgot password?</Typography>
+                        </Box>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <StyledSignUpButton variant="contained" onClick={() => handleSubmit(onSubmit(userData))}>
+                            Log In
                         </StyledSignUpButton>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <ButtonBox>
-                            <Typography sx={{ color: "#fff" }}>Already have an account?</Typography>
-                            <Link href="/login">
-                                <Typography component="h2" weight="semiBold" sx={{ color: "var(--palette-02)" }}>
-                                    Log In
-                                </Typography>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginTop: "0.5rem",
+                                gap: "0.5rem"
+                            }}>
+                            <Typography sx={{ color: "#fff" }}>Don’t have an account?</Typography>
+                            <Link href="/register">
+                                <Typography sx={{ color: "var(--palette-02)", fontWeight: "700" }}>Register</Typography>
                             </Link>
-                        </ButtonBox>
+                        </Box>
                     </Grid>
                 </Grid>
             </Box>
@@ -225,22 +216,18 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;
 
 const validationSchema = Yup.object().shape({
     username: Yup.string()
-        .required("Username is required")
-        .min(6, "Username must be at least 6 characters")
-        .max(20, "Username must not exceed 20 characters")
-        .matches(/^\w*$/, "Username must not include special characters"),
-    email: Yup.string().required("Email is required").email("Email is invalid"),
+        .required("This field is required")
+        .min(6, "Username/Email must be at least 6 characters")
+        .max(30, "Username/Email must not exceed 30 characters")
+        .matches(/^\w*$/, "Username must not include special chars"),
     password: Yup.string()
         .required("Password is required")
         .min(6, "Password must be at least 6 characters")
-        .max(40, "Password must not exceed 40 characters"),
-    confirmPassword: Yup.string()
-        .required("Confirm password is required")
-        .oneOf([Yup.ref("password"), null], "Confirm Password does not match")
+        .max(40, "Password must not exceed 40 characters")
 });
 
 const imgLinks = [
@@ -285,10 +272,10 @@ const Logo = styled(Box)(({ theme }) => ({
 
 const StyledSignUpButton = styled(Button)(({ theme }) => ({
     borderRadius: "10px",
-    textTransform: "capitalize",
     padding: "1rem 1.5rem",
     marginTop: "0.5rem",
     width: "100%",
+    textTransform: "capitalize",
     backgroundColor: "var(--palette-01)",
     "&:hover": {
         backgroundColor: "var(--palette-02)"
@@ -322,19 +309,4 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 const StyledTypo = styled(Typography)(({ theme }) => ({
     fontSize: "0.8rem"
-}));
-
-const ButtonBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "0.5rem",
-    gap: "0.5rem"
-}));
-
-const IconBox = styled(Box)(({ theme }) => ({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%"
 }));
