@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { styled, Box, AppBar, useScrollTrigger, IconButton, Backdrop, Divider, Fade, Drawer } from "@mui/material";
-import { SearchOutlined, MenuOutlined, ChevronRightOutlined, KeyboardArrowUp } from "@mui/icons-material";
+import { SearchOutlined, KeyboardArrowUp } from "@mui/icons-material";
 
 import logo from "../../../public/logo.png";
 import Typography from "../Typography/Typography";
+import Button from "../Button/Button";
 
 const homeData = [
     { title: "Home", link: "/" },
-    { title: "Podcasts", link: "/" },
-    { title: "Playlists", link: "/" },
-    { title: "Hosts", link: "/" },
-    { title: "About Us", link: "/" },
-    { title: "FAQ", link: "/" }
+    { title: "Podcasts", link: "/podcasts" },
+    { title: "Playlists", link: "/playlists" },
+    { title: "Hosts", link: "/hosts" },
+    { title: "About Us", link: "/aboutus" },
+    { title: "FAQ", link: "/faq" }
 ];
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
+    const { asPath } = useRouter();
     const [prior, setPrior] = useState(false);
     const trigger = useScrollTrigger({
         disableHysteresis: true,
         threshold: 200
     });
-
-    const handleToggleOpen = () => {
-        setOpen(open !== true);
-        document.body.style.overflow = !open ? "hidden" : "auto";
-    };
 
     useEffect(() => {
         if (open) setPrior(true);
@@ -48,12 +46,38 @@ const NavBar = () => {
 
                 <StyledNavContainer>
                     {homeData.map((item, i) => (
-                        <NavItem trigger={trigger} key={i} content={item}></NavItem>
+                        <NavItem trigger={trigger} key={i} content={item} asPath={asPath}></NavItem>
                     ))}
                     <StyledNavItem trigger={trigger} sx={{ "&:before": { bottom: "-10px" } }}>
                         <SearchOutlined />
                     </StyledNavItem>
                 </StyledNavContainer>
+
+                <Box sx={{ display: "flex" }}>
+                    <Link href="/register">
+                        <Button
+                            bgcolor="transparent"
+                            sx={{
+                                borderColor: "transparent",
+                                color: "var(--palette-03)",
+                                "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
+                            }}>
+                            Register
+                        </Button>
+                    </Link>
+                    <Link href="/signin">
+                        <Button
+                            bgcolor="transparent"
+                            sx={{
+                                borderColor: "var(--palette-03)",
+                                color: "var(--palette-03)",
+                                minWidth: "6rem",
+                                "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
+                            }}>
+                            Sign In
+                        </Button>
+                    </Link>
+                </Box>
             </AppBarDesktop>
 
             <Fade in={trigger && !open}>
@@ -66,11 +90,14 @@ const NavBar = () => {
 };
 export default NavBar;
 
-const NavItem = ({ content = { title: "", link: "" }, sx = {}, trigger, ...props }) => {
+const NavItem = ({ content = { title: "", link: "" }, sx = {}, trigger, asPath, ...props }) => {
     return (
         <StyledNavItem trigger={trigger} {...props}>
             <Link href={content.link}>
-                <Typography component="h1" weight="semiBold">
+                <Typography
+                    component="h1"
+                    weight="semiBold"
+                    sx={{ color: asPath === content.link ? "var(--palette-03)" : "#fff" }}>
                     {content.title}
                 </Typography>
             </Link>
@@ -91,8 +118,9 @@ const AppBarDesktop = styled(AppBar, {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    boxShadow: trigger ? "4px 4px 25px rgba(0, 0, 0, 0.6)" : "none",
-    backgroundColor: trigger ? "var(--palette-02)" : "transparent",
+    gap: "4rem",
+    boxShadow: trigger ? "4px 4px 25px rgba(255, 255, 255, 0.6)" : "none",
+    backgroundColor: trigger ? "#000" : "transparent",
     zIndex: prior ? "10001" : "10002",
     padding: "1rem 3rem",
     [theme.breakpoints.down("sm")]: {
@@ -106,7 +134,7 @@ const StyledNavContainer = styled(Box)(({ theme }) => ({
     alignItems: "stretch",
     justifyContent: "center",
     width: "100%",
-    padding: "0 3rem",
+    padding: "0 4rem",
     [theme.breakpoints.down("md")]: {
         padding: "2rem 0"
     }
@@ -134,18 +162,17 @@ const AppBarMobileHeader = styled(Box)(() => ({
 
 const ScrollTop = styled(IconButton)(() => ({
     color: "var(--palette-06)",
-    backgroundColor: "var(--palette-02)",
+    backgroundColor: "#000",
     position: "fixed",
-    bottom: 20,
-    right: 20,
+    bottom: 25,
+    right: 25,
     zIndex: 100000,
     boxShadow: "0px 0px 15px rgba(255,255,255,0.6)",
     transition: "all .4s ease-in-out !important",
     border: "2px solid transparent",
     "&:hover": {
-        color: "var(--palette-02)",
-        backgroundColor: "var(--palette-06)",
-        border: "2px solid var(--palette-02)"
+        color: "#000",
+        backgroundColor: "#fff"
     }
 }));
 
@@ -183,8 +210,7 @@ const StyledNavItem = styled(Box, {
         textAlign: "center",
         height: "100%",
         display: "flex",
-        alignItems: "center",
-        color: "#fff"
+        alignItems: "center"
     },
     "&:hover": {
         "& .MuiBox-root": {
