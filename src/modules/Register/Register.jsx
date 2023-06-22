@@ -1,12 +1,37 @@
-import { Box, styled } from "@mui/material";
-import React from "react";
+import { Box, Button, Checkbox, FormControlLabel, FormLabel, Grid, TextField, styled } from "@mui/material";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Carousel, Typography } from "../../components";
 import logo from "../../../public/logo.png";
+import { Controller, useForm } from "react-hook-form";
+import { AccountCircleOutlined, LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
 
 const Register = () => {
+    const [error, setError] = useState("");
+    const [userData, setUserData] = useState({
+        gender: "",
+        birthday: "",
+        username: "",
+        email: "",
+        password: ""
+    });
+    const [togglePassword, setTogglePassword] = useState({
+        amount: "",
+        password: "",
+        weight: "",
+        weightRange: "",
+        showPassword: false
+    });
+
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({});
+
     return (
         <Box sx={{ display: "flex", width: "100%", height: "100vh" }}>
             <Logo>
@@ -38,7 +63,210 @@ const Register = () => {
                 </Box>
             </Box>
 
-            <Box sx={{ width: "50%", backgroundColor: "#212121" }}></Box>
+            <Box sx={{ width: "50%", backgroundColor: "#212121", padding: "6% 8%" }}>
+                <Typography
+                    size="h2"
+                    weight="extraBold"
+                    color="#fff"
+                    align="center"
+                    sx={{ fontFamily: "Fairplay", marginBottom: "1rem" }}>
+                    Register
+                </Typography>
+                <Grid container spacing={2}>
+                    <Grid container item xs={12}>
+                        <Grid
+                            item
+                            xs={1.5}
+                            sx={{
+                                backgroundColor: "#fff",
+                                borderRadius: "8px 0 0 8px",
+                                height: "100%"
+                            }}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%"
+                                }}>
+                                <AccountCircleOutlined />
+                            </Box>
+                        </Grid>
+                        <Grid item xs={10.5}>
+                            <StyledTextField
+                                required
+                                id="username"
+                                name="username"
+                                label="Enter your username"
+                                variant="outlined"
+                                fullWidth
+                                {...register("username")}
+                                error={errors.username ? true : false}
+                                value={userData.username}
+                                onChange={(e) => {
+                                    setUserData({ ...userData, username: e.target.value });
+                                }}
+                                InputLabelProps={{
+                                    style: { color: "rgba(255, 255, 255, 0.70)" }
+                                }}
+                            />
+                        </Grid>
+                        <StyledTypo variant="inherit" color="error">
+                            {errors.username?.message}
+                        </StyledTypo>
+                    </Grid>
+
+                    <Grid container item xs={12}>
+                        <Grid
+                            item
+                            xs={1.5}
+                            sx={{
+                                backgroundColor: "#fff",
+                                borderRadius: "8px 0 0 8px",
+                                height: "100%"
+                            }}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%"
+                                }}>
+                                <MailOutlineOutlined />
+                            </Box>
+                        </Grid>
+                        <Grid item xs={10.5}>
+                            <StyledTextField
+                                required
+                                id="email"
+                                name="email"
+                                label="Enter your email"
+                                variant="outlined"
+                                fullWidth
+                                {...register("email")}
+                                error={errors.email ? true : false}
+                                value={userData.email}
+                                onChange={(e) => {
+                                    setUserData({ ...userData, email: e.target.value });
+                                }}
+                                InputLabelProps={{
+                                    style: { color: "rgba(255, 255, 255, 0.70)" }
+                                }}
+                            />
+                        </Grid>
+                        <StyledTypo variant="inherit" color="error">
+                            {errors.email?.message}
+                        </StyledTypo>
+                    </Grid>
+
+                    <Grid container item xs={12}>
+                        <Grid
+                            item
+                            xs={1.5}
+                            sx={{
+                                backgroundColor: "#fff",
+                                borderRadius: "8px 0 0 8px",
+                                height: "100%"
+                            }}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%"
+                                }}>
+                                <LockOutlined />
+                            </Box>
+                        </Grid>
+
+                        <Grid item xs={10.5}>
+                            <StyledTextField
+                                required
+                                id="password"
+                                name="password"
+                                label="Enter your password"
+                                variant="outlined"
+                                type="password"
+                                fullWidth
+                                {...register("password")}
+                                error={errors.password ? true : false}
+                                value={userData.password}
+                                onChange={(e) => {
+                                    setUserData({ ...userData, password: e.target.value });
+                                }}
+                                InputLabelProps={{
+                                    style: { color: "rgba(255, 255, 255, 0.70)" }
+                                }}
+                            />
+                        </Grid>
+                        <StyledTypo variant="inherit" color="error">
+                            {errors.password?.message}
+                        </StyledTypo>
+                    </Grid>
+
+                    <Grid container item xs={12}>
+                        <Grid
+                            item
+                            xs={1.5}
+                            sx={{
+                                backgroundColor: "#fff",
+                                borderRadius: "8px 0 0 8px",
+                                height: "100%"
+                            }}>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%"
+                                }}>
+                                <LockOutlined />
+                            </Box>
+                        </Grid>
+                        <Grid item xs={10.5}>
+                            <StyledTextField
+                                required
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                label="Re-enter your password"
+                                variant="outlined"
+                                type="password"
+                                fullWidth
+                                {...register("confirmPassword")}
+                                error={errors.confirmPassword ? true : false}
+                                InputLabelProps={{
+                                    style: { color: "rgba(255, 255, 255, 0.70)" }
+                                }}
+                            />
+                        </Grid>
+                        <StyledTypo variant="inherit" color="error">
+                            {errors.confirmPassword?.message}
+                        </StyledTypo>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <StyledSignUpButton variant="contained" onClick={() => handleSubmit(onSubmit(data))}>
+                            Register
+                        </StyledSignUpButton>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginTop: "0.5rem",
+                                gap: "0.5rem"
+                            }}>
+                            <Typography sx={{ color: "#fff" }}>Already have an account?</Typography>
+                            <Link href="/signin">
+                                <Typography sx={{ color: "var(--palette-02)", fontWeight: "700" }}>Sign In</Typography>
+                            </Link>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
         </Box>
     );
 };
@@ -83,4 +311,43 @@ const Logo = styled(Box)(({ theme }) => ({
     position: "absolute",
     top: "5%",
     left: "2%"
+}));
+
+const StyledSignUpButton = styled(Button)(({ theme }) => ({
+    padding: "1rem 1.5rem",
+    marginTop: "0.5rem",
+    width: "100%",
+    backgroundColor: "var(--palette-01)",
+    "&:hover": {
+        backgroundColor: "var(--palette-02)"
+    }
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+    color: "white",
+    "& label.Mui-focused": {
+        color: "white"
+    },
+    "& .MuiInput-underline:after": {
+        borderBottomColor: "#000"
+    },
+    "& .MuiOutlinedInput-root": {
+        borderRadius: "0 8px 8px 0",
+        "& fieldset": {
+            borderColor: "white"
+        },
+        "& ::placeholder": {
+            color: "white"
+        },
+        "&:hover fieldset": {
+            borderColor: "var(--palette-02)"
+        },
+        "&.Mui-focused fieldset": {
+            borderColor: "white"
+        }
+    }
+}));
+
+const StyledTypo = styled(Typography)(({ theme }) => ({
+    fontSize: "0.8rem"
 }));

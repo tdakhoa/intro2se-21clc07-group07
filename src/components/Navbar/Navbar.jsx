@@ -162,18 +162,17 @@ const AppBarMobileHeader = styled(Box)(() => ({
 
 const ScrollTop = styled(IconButton)(() => ({
     color: "var(--palette-06)",
-    backgroundColor: "var(--palette-02)",
+    backgroundColor: "#000",
     position: "fixed",
-    bottom: 20,
-    right: 20,
+    bottom: 25,
+    right: 25,
     zIndex: 100000,
     boxShadow: "0px 0px 15px rgba(255,255,255,0.6)",
     transition: "all .4s ease-in-out !important",
     border: "2px solid transparent",
     "&:hover": {
-        color: "var(--palette-02)",
-        backgroundColor: "var(--palette-06)",
-        border: "2px solid var(--palette-02)"
+        color: "#000",
+        backgroundColor: "#fff"
     }
 }));
 
