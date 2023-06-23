@@ -1,28 +1,28 @@
-import { Box, Checkbox, FormControlLabel, FormGroup, Grid, TextField, styled } from "@mui/material";
 import React, { useState } from "react";
+import { Box, Checkbox, FormControlLabel, FormGroup, Grid, TextField, styled } from "@mui/material";
+import { LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import * as Yup from "yup";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Button, Carousel, Typography } from "../../components";
 import logo from "../../../public/logo.png";
-import { LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
-import { useForm } from "react-hook-form";
+import { Button, Carousel, Typography } from "../../components";
 
 const Login = () => {
-    const [error, setError] = useState("");
+    const [tick, setTick] = useState(false);
     const [userData, setUserData] = useState({
-        gender: "",
-        birthday: "",
-        username: "",
         email: "",
         password: ""
     });
 
+    const handleTick = () => {
+        setTick(!tick);
+    };
+
     const {
         register,
-        control,
         handleSubmit,
         formState: { errors }
     } = useForm({ resolver: yupResolver(validationSchema) });
@@ -62,15 +62,7 @@ const Login = () => {
                 </Box>
             </Box>
 
-            <Box
-                sx={{
-                    width: "50%",
-                    backgroundColor: "#212121",
-                    padding: "6% 8%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center"
-                }}>
+            <FormBox>
                 <Typography
                     size="h2"
                     weight="extraBold"
@@ -79,31 +71,17 @@ const Login = () => {
                     sx={{ fontFamily: "Fairplay", marginBottom: "1rem" }}>
                     Log In
                 </Typography>
-                <Grid container spacing={2}>
+                <Grid container sx={{ gap: "0.5rem" }}>
                     <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    height: "100%"
-                                }}>
+                        <IconGrid item xs={1.5}>
+                            <IconBox>
                                 <MailOutlineOutlined />
-                            </Box>
-                        </Grid>
+                            </IconBox>
+                        </IconGrid>
+
                         <Grid item xs={10.5}>
                             <StyledTextField
                                 required
-                                id="email"
-                                name="email"
                                 label="Enter your email"
                                 variant="outlined"
                                 fullWidth
@@ -115,36 +93,21 @@ const Login = () => {
                                 }}
                             />
                         </Grid>
-                        <StyledTypo variant="inherit" color="error">
-                            {errors.email?.message}
-                        </StyledTypo>
                     </Grid>
+                    <StyledTypo variant="inherit" color="error">
+                        {errors.email?.message}
+                    </StyledTypo>
 
                     <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    height: "100%"
-                                }}>
+                        <IconGrid item xs={1.5}>
+                            <IconBox>
                                 <LockOutlined />
-                            </Box>
-                        </Grid>
+                            </IconBox>
+                        </IconGrid>
 
                         <Grid item xs={10.5}>
                             <StyledTextField
                                 required
-                                id="password"
-                                name="password"
                                 label="Enter your password"
                                 variant="outlined"
                                 type="password"
@@ -157,61 +120,41 @@ const Login = () => {
                                 }}
                             />
                         </Grid>
-                        <StyledTypo variant="inherit" color="error">
-                            {errors.password?.message}
-                        </StyledTypo>
                     </Grid>
+                    <StyledTypo variant="inherit" color="error">
+                        {errors.password?.message}
+                    </StyledTypo>
 
                     <Grid item xs={12}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                color: "rgba(255, 255, 255, 0.70)"
-                            }}>
+                        <TickBox>
                             <FormGroup>
                                 <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            sx={{
-                                                color: "rgba(255, 255, 255, 0.70)",
-                                                "&.Mui-checked": {
-                                                    color: "rgba(255, 255, 255, 0.70)"
-                                                }
-                                            }}
-                                        />
-                                    }
+                                    control={<PWTick value={tick} onChange={handleTick} />}
                                     label="Remember password?"
                                 />
                             </FormGroup>
                             <Typography>Forgot password?</Typography>
-                        </Box>
+                        </TickBox>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <StyledSignUpButton variant="contained" onClick={() => handleSubmit(onSubmit(userData))}>
+                        <StyledSignUpButton variant="contained" onClick={handleSubmit(onSubmit)}>
                             Log In
                         </StyledSignUpButton>
                     </Grid>
 
                     <Grid item xs={12}>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                marginTop: "0.5rem",
-                                gap: "0.5rem"
-                            }}>
+                        <ButtonBox>
                             <Typography sx={{ color: "#fff" }}>Don’t have an account?</Typography>
                             <Link href="/register">
-                                <Typography sx={{ color: "var(--palette-02)", fontWeight: "700" }}>Register</Typography>
+                                <Typography component="h2" weight="semiBold" sx={{ color: "var(--palette-02)" }}>
+                                    Register
+                                </Typography>
                             </Link>
-                        </Box>
+                        </ButtonBox>
                     </Grid>
                 </Grid>
-            </Box>
+            </FormBox>
         </Box>
     );
 };
@@ -219,8 +162,8 @@ const Login = () => {
 export default Login;
 
 const validationSchema = Yup.object().shape({
-    username: Yup.string()
-        .required("This field is required")
+    email: Yup.string()
+        .required("Username/Email is required")
         .min(6, "Username/Email must be at least 6 characters")
         .max(30, "Username/Email must not exceed 30 characters")
         .matches(/^\w*$/, "Username must not include special chars"),
@@ -309,4 +252,48 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 const StyledTypo = styled(Typography)(({ theme }) => ({
     fontSize: "0.8rem"
+}));
+
+const ButtonBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "0.5rem",
+    gap: "0.5rem"
+}));
+
+const IconBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%"
+}));
+
+const IconGrid = styled(Grid)(({ theme }) => ({
+    backgroundColor: "#fff",
+    borderRadius: "8px 0 0 8px",
+    height: "100%"
+}));
+
+const FormBox = styled(Box)(({ theme }) => ({
+    width: "50%",
+    backgroundColor: "#212121",
+    padding: "6% 8%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
+}));
+
+const PWTick = styled(Checkbox)(({ theme }) => ({
+    color: "rgba(255, 255, 255, 0.70)",
+    "&.Mui-checked": {
+        color: "rgba(255, 255, 255, 0.70)"
+    }
+}));
+
+const TickBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    color: "rgba(255, 255, 255, 0.70)"
 }));

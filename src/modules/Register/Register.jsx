@@ -58,15 +58,7 @@ const Register = () => {
                 </Box>
             </Box>
 
-            <Box
-                sx={{
-                    width: "50%",
-                    backgroundColor: "#212121",
-                    padding: "6% 8%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center"
-                }}>
+            <FormBox>
                 <Typography
                     size="h2"
                     weight="extraBold"
@@ -77,18 +69,11 @@ const Register = () => {
                 </Typography>
                 <Grid container sx={{ gap: "0.5rem" }}>
                     <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
+                        <IconGrid item xs={1.5}>
                             <IconBox>
                                 <AccountCircleOutlined />
                             </IconBox>
-                        </Grid>
+                        </IconGrid>
                         <Grid item xs={10.5}>
                             <StyledTextField
                                 required
@@ -109,18 +94,11 @@ const Register = () => {
                     </StyledTypo>
 
                     <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
+                        <IconGrid item xs={1.5}>
                             <IconBox>
                                 <MailOutlineOutlined />
                             </IconBox>
-                        </Grid>
+                        </IconGrid>
                         <Grid item xs={10.5}>
                             <StyledTextField
                                 required
@@ -141,18 +119,11 @@ const Register = () => {
                     </StyledTypo>
 
                     <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
+                        <IconGrid item xs={1.5}>
                             <IconBox>
                                 <LockOutlined />
                             </IconBox>
-                        </Grid>
+                        </IconGrid>
 
                         <Grid item xs={10.5}>
                             <StyledTextField
@@ -175,18 +146,11 @@ const Register = () => {
                     </StyledTypo>
 
                     <Grid container item xs={12}>
-                        <Grid
-                            item
-                            xs={1.5}
-                            sx={{
-                                backgroundColor: "#fff",
-                                borderRadius: "8px 0 0 8px",
-                                height: "100%"
-                            }}>
+                        <IconGrid item xs={1.5}>
                             <IconBox>
                                 <LockOutlined />
                             </IconBox>
-                        </Grid>
+                        </IconGrid>
                         <Grid item xs={10.5}>
                             <StyledTextField
                                 required
@@ -220,7 +184,7 @@ const Register = () => {
                         </ButtonBox>
                     </Grid>
                 </Grid>
-            </Box>
+            </FormBox>
         </Box>
     );
 };
@@ -337,4 +301,19 @@ const IconBox = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     alignItems: "center",
     height: "100%"
+}));
+
+const IconGrid = styled(Grid)(({ theme }) => ({
+    backgroundColor: "#fff",
+    borderRadius: "8px 0 0 8px",
+    height: "100%"
+}));
+
+const FormBox = styled(Box)(({ theme }) => ({
+    width: "50%",
+    backgroundColor: "#212121",
+    padding: "6% 8%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
 }));
