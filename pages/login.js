@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import SignIn from "../src/modules/SignIn/SignIn";
+import LogIn from "../src/modules/LogIn/LogIn";
 
 export default function HomePage() {
     return (
@@ -11,7 +11,7 @@ export default function HomePage() {
             </Head>
 
             <main>
-                <SignIn />
+                <LogIn />
             </main>
         </div>
     );
