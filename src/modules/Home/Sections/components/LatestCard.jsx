@@ -1,13 +1,18 @@
-import { CardMedia, Chip, Grid, styled } from "@mui/material";
+import { Box, CardMedia, Chip, Grid, styled } from "@mui/material";
 
 import { Typography } from "../../../../components";
+import { PlayCircle } from "@mui/icons-material";
 
 const LatestCard = ({ type, title, img, date }) => {
     return (
         <ArticleBox>
             <GridCard sx={{ border: "none" }} direction="column" container>
                 <Grid item xs={7} sx={{ width: "100%" }}>
-                    <StyledCardMedia image={img} title="" />
+                    <StyledCardMedia image={img} title="">
+                        <Overlay>
+                            <PlayCircle sx={{ fontSize: "50px", position: "relative", zIndex: 2, color: "#fff" }} />
+                        </Overlay>
+                    </StyledCardMedia>
                 </Grid>
                 <Grid item xs={5} sx={{ color: "#000" }}>
                     <Chip
@@ -37,7 +42,12 @@ const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
     position: "relative",
     width: "100%",
     height: "100%",
-    borderRadius: "6px"
+    borderRadius: "6px",
+    "&:hover": {
+        "& .MuiBox-root": {
+            visibility: "visible"
+        }
+    }
 }));
 
 const ArticleBox = styled("div")(({ theme }) => ({
@@ -58,11 +68,11 @@ const GridCard = styled(Grid)(({ theme }) => ({
     boxSizing: "border-box",
     userSelect: "none",
     borderRadius: "8px",
-    boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
     transition: "all 0.3s ease-in-out",
     padding: "0.7rem",
     "&:hover": {
-        transform: "scale(1.05)"
+        boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
+        cursor: "pointer"
     },
     [theme.breakpoints.between("sm", "md")]: {
         height: "28rem",
@@ -77,4 +87,18 @@ const TitleTypo = styled(Typography)(({ theme }) => ({
     WebkitBoxOrient: "vertical",
     WebkitLineClamp: 2,
     maxWidth: "100%"
+}));
+
+const Overlay = styled(Box)(({ theme }) => ({
+    position: "absolute",
+    background: "rgba(0, 0, 0, 0.3)",
+    transition: "all 0.2s ease-in-out",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    visibility: "hidden",
+    zIndex: 1,
+    width: "100%",
+    height: "100%",
+    borderRadius: "6px"
 }));
