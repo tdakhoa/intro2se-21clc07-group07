@@ -35,7 +35,7 @@ const LatestEpisodes = () => {
                     </Button>
                 </Box>
 
-                <Grid container spacing={8}>
+                <Grid container spacing={6}>
                     {cardData.map((item, i) => (
                         <Grid item xs={3} key={i}>
                             <LatestCard type={item.type} title={item.title} img={item.img} date={item.date} />
