@@ -28,7 +28,7 @@ const Login = () => {
     } = useForm({ resolver: yupResolver(validationSchema) });
 
     const onSubmit = async (data) => {
-        console.log(data);
+        
     };
 
     return (

@@ -1,7 +1,7 @@
 import { Box, CardMedia, Chip, Grid, styled } from "@mui/material";
+import { PlayCircle } from "@mui/icons-material";
 
 import { Typography } from "../../../../components";
-import { PlayCircle } from "@mui/icons-material";
 
 const LatestCard = ({ type, title, img, date }) => {
     return (

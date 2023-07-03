@@ -1,21 +1,35 @@
 import React, { useState } from "react";
-import { Box, Button, Grid, TextField, styled } from "@mui/material";
+import { Alert, Box, Button, Grid, Snackbar, TextField, styled } from "@mui/material";
 import { AccountCircleOutlined, LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { collection, addDoc, getDocs, setDoc } from "firebase/firestore";
 
-import { Carousel, Typography } from "../../components";
+import { db } from "../../firebase/firebaseConfig";
 import logo from "../../../public/logo.png";
+import { Carousel, Typography } from "../../components";
 
 const Register = () => {
+    const router = useRouter();
     const [userData, setUserData] = useState({
         username: "",
         email: "",
         password: ""
     });
+    const [username, setUsername] = useState(null);
+    const [email, setEmail] = useState(null);
+
+    const [success, setSuccess] = useState(false);
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setSuccess(false);
+    };
 
     const {
         register,
@@ -23,8 +37,43 @@ const Register = () => {
         formState: { errors }
     } = useForm({ resolver: yupResolver(validationSchema) });
 
-    const onSubmit = async (data) => {
-        console.log(data);
+    const onSubmit = async () => {
+        if (username == null && email == null) {
+            const ref = collection(db, "users");
+            await addDoc(ref, userData);
+            setSuccess(true);
+            setTimeout(function () {
+                router.push("/login");
+            }, 500);
+        }
+    };
+
+    const handleUsername = async (e) => {
+        setUserData({ ...userData, username: e.target.value });
+        const ref = collection(db, "users");
+        const docSnap = await getDocs(ref);
+        let exist = false;
+        docSnap.forEach((doc) => {
+            let i = doc.data();
+            if (i.username === e.target.value) exist = true;
+        });
+        setUsername(exist ? "Username is already taken" : null);
+    };
+
+    const handleEmail = async (e) => {
+        setUserData({ ...userData, email: e.target.value });
+        const ref = collection(db, "users");
+        const docSnap = await getDocs(ref);
+        let exist = false;
+        docSnap.forEach((doc) => {
+            let i = doc.data();
+            if (i.email === e.target.value) exist = true;
+        });
+        setEmail(exist ? "Email is already taken" : null);
+    };
+
+    const handlePassword = (e) => {
+        setUserData({ ...userData, password: e.target.value });
     };
 
     return (
@@ -81,16 +130,14 @@ const Register = () => {
                                 variant="outlined"
                                 fullWidth
                                 {...register("username")}
-                                error={errors.username ? true : false}
+                                error={errors.username || username ? true : false}
                                 value={userData.username}
-                                onChange={(e) => {
-                                    setUserData({ ...userData, username: e.target.value });
-                                }}
+                                onChange={handleUsername}
                             />
                         </Grid>
                     </Grid>
                     <StyledTypo variant="inherit" color="error">
-                        {errors.username?.message}
+                        {errors.username?.message || username}
                     </StyledTypo>
 
                     <Grid container item xs={12}>
@@ -106,16 +153,14 @@ const Register = () => {
                                 variant="outlined"
                                 fullWidth
                                 {...register("email")}
-                                error={errors.email ? true : false}
+                                error={errors.email || email ? true : false}
                                 value={userData.email}
-                                onChange={(e) => {
-                                    setUserData({ ...userData, email: e.target.value });
-                                }}
+                                onChange={handleEmail}
                             />
                         </Grid>
                     </Grid>
                     <StyledTypo variant="inherit" color="error">
-                        {errors.email?.message}
+                        {errors.email?.message || email}
                     </StyledTypo>
 
                     <Grid container item xs={12}>
@@ -135,9 +180,7 @@ const Register = () => {
                                 {...register("password", { required: true })}
                                 error={errors.password ? true : false}
                                 value={userData.password}
-                                onChange={(e) => {
-                                    setUserData({ ...userData, password: e.target.value });
-                                }}
+                                onChange={handlePassword}
                             />
                         </Grid>
                     </Grid>
@@ -185,6 +228,15 @@ const Register = () => {
                     </Grid>
                 </Grid>
             </FormBox>
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={success}
+                autoHideDuration={3000}
+                onClose={handleCloseSuccess}>
+                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: "100%" }}>
+                    Register Successfully!
+                </Alert>
+            </Snackbar>
         </Box>
     );
 };
@@ -259,7 +311,9 @@ const StyledSignUpButton = styled(Button)(({ theme }) => ({
     }
 }));
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
+const StyledTextField = styled(TextField, {
+    shouldForwardProp: (prop) => prop !== "error"
+})(({ theme, error }) => ({
     "& label.Mui-focused": {
         color: "white"
     },
@@ -281,6 +335,13 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
         "&.Mui-focused fieldset": {
             borderColor: "white"
         }
+    },
+    position: error ? "relative" : "",
+    animation: error ? "shake .1s linear" : "initial",
+    animationIterationCount: error ? "3" : "initial",
+    "@keyframes shake": {
+        "0%": { left: "-5px" },
+        "100%": { right: "-5px" }
     }
 }));
 

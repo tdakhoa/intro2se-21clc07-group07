@@ -3,6 +3,7 @@ import React from "react";
 import { ChevronRight } from "@mui/icons-material";
 
 import { Button, Typography } from "../../../components";
+import DragDrop from "./components/DragDrop";
 
 const Host = () => {
     return (
@@ -32,6 +33,9 @@ const Host = () => {
                         }}>
                         See All
                     </Button>
+                </Box>
+                <Box>
+                    <DragDrop />
                 </Box>
             </Box>
         </>

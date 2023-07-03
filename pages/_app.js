@@ -5,8 +5,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
 import { SnackbarProvider } from "notistack";
+import { Provider as StoreProvider } from "react-redux";
 
 import theme from "../src/theme";
+import { store } from "../src/redux/store";
 import createEmotionCache from "../src/createEmotionCache";
 import "../styles/globals.css";
 import "../styles/index.css";
@@ -25,12 +27,14 @@ export default function MyApp(props) {
             <Head>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
-            <ThemeProvider theme={theme}>
-                <SnackbarProvider autoHideDuration={2000}>
-                    <CssBaseline />
-                    <Component {...pageProps} />
-                </SnackbarProvider>
-            </ThemeProvider>
+            <StoreProvider store={store}>
+                <ThemeProvider theme={theme}>
+                    <SnackbarProvider autoHideDuration={2000}>
+                        <CssBaseline />
+                        <Component {...pageProps} />
+                    </SnackbarProvider>
+                </ThemeProvider>
+            </StoreProvider>
         </CacheProvider>
     );
 }
