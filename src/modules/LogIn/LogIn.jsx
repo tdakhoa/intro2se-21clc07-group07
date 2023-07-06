@@ -1,17 +1,24 @@
-import React, { useState } from "react";
-import { Box, Checkbox, FormControlLabel, FormGroup, Grid, TextField, styled } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Alert, Box, Checkbox, FormControlLabel, FormGroup, Grid, Snackbar, TextField, styled } from "@mui/material";
 import { LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { collection, getDocs } from "firebase/firestore";
+import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 
+import { db } from "../../firebase/firebaseConfig";
 import logo from "../../../public/logo.png";
 import { Button, Carousel, Typography } from "../../components";
 
 const Login = () => {
+    const router = useRouter();
     const [tick, setTick] = useState(false);
+    const [valid, setValid] = useState(null);
     const [userData, setUserData] = useState({
         email: "",
         password: ""
@@ -21,15 +28,52 @@ const Login = () => {
         setTick(!tick);
     };
 
+    const [success, setSuccess] = useState(false);
+    const handleCloseSuccess = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setSuccess(false);
+    };
+
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm({ resolver: yupResolver(validationSchema) });
 
-    const onSubmit = async (data) => {
-        
+    const onSubmit = async () => {
+        const ref = collection(db, "users");
+        const docSnap = await getDocs(ref);
+        let exist = false;
+        let username = false;
+        let uid = "";
+
+        docSnap.forEach((doc) => {
+            let i = doc.data();
+            if (i.email === userData.email || i.username === userData.email) {
+                username = true;
+                if (i.password === userData.password) {
+                    uid = doc.id;
+                    exist = true;
+                }
+            }
+        });
+
+        if (!username) setValid("Email/Username is not existed");
+        else if (!exist) setValid("Password is not correct");
+        else {
+            setValid(null);
+            setSuccess(true);
+            setTimeout(function () {
+                router.push("/");
+            }, 1000);
+            if (tick) Cookies.set("uid", uid, { expires: 7 });
+        }
     };
+
+    const uid = useSelector((state) => state.user.value);
+    if (uid) router.push("/");
 
     return (
         <Box sx={{ display: "flex", width: "100%", height: "100vh" }}>
@@ -86,7 +130,7 @@ const Login = () => {
                                 variant="outlined"
                                 fullWidth
                                 {...register("email")}
-                                error={errors.email ? true : false}
+                                error={errors.email || valid ? true : false}
                                 value={userData.email}
                                 onChange={(e) => {
                                     setUserData({ ...userData, email: e.target.value });
@@ -113,7 +157,7 @@ const Login = () => {
                                 type="password"
                                 fullWidth
                                 {...register("password")}
-                                error={errors.password ? true : false}
+                                error={errors.password || valid ? true : false}
                                 value={userData.password}
                                 onChange={(e) => {
                                     setUserData({ ...userData, password: e.target.value });
@@ -122,7 +166,7 @@ const Login = () => {
                         </Grid>
                     </Grid>
                     <StyledTypo variant="inherit" color="error">
-                        {errors.password?.message}
+                        {errors.password?.message || valid}
                     </StyledTypo>
 
                     <Grid item xs={12}>
@@ -130,7 +174,7 @@ const Login = () => {
                             <FormGroup>
                                 <FormControlLabel
                                     control={<PWTick value={tick} onChange={handleTick} />}
-                                    label="Remember password?"
+                                    label="Remember me?"
                                 />
                             </FormGroup>
                             <Typography>Forgot password?</Typography>
@@ -155,6 +199,15 @@ const Login = () => {
                     </Grid>
                 </Grid>
             </FormBox>
+            <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                open={success}
+                autoHideDuration={3000}
+                onClose={handleCloseSuccess}>
+                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: "100%" }}>
+                    Login Successfully!
+                </Alert>
+            </Snackbar>
         </Box>
     );
 };
@@ -165,8 +218,7 @@ const validationSchema = Yup.object().shape({
     email: Yup.string()
         .required("Username/Email is required")
         .min(6, "Username/Email must be at least 6 characters")
-        .max(30, "Username/Email must not exceed 30 characters")
-        .matches(/^\w*$/, "Username must not include special chars"),
+        .max(30, "Username/Email must not exceed 30 characters"),
     password: Yup.string()
         .required("Password is required")
         .min(6, "Password must be at least 6 characters")
@@ -225,7 +277,9 @@ const StyledSignUpButton = styled(Button)(({ theme }) => ({
     }
 }));
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
+const StyledTextField = styled(TextField, {
+    shouldForwardProp: (prop) => prop !== "error"
+})(({ theme, error }) => ({
     "& label.Mui-focused": {
         color: "white"
     },
@@ -247,6 +301,13 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
         "&.Mui-focused fieldset": {
             borderColor: "white"
         }
+    },
+    position: error ? "relative" : "",
+    animation: error ? "shake .1s linear" : "initial",
+    animationIterationCount: error ? "3" : "initial",
+    "@keyframes shake": {
+        "0%": { left: "-5px" },
+        "100%": { right: "-5px" }
     }
 }));
 

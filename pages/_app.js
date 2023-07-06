@@ -10,6 +10,8 @@ import { Provider as StoreProvider } from "react-redux";
 import theme from "../src/theme";
 import { store } from "../src/redux/store";
 import createEmotionCache from "../src/createEmotionCache";
+import GetCookie from "../src/cookies/GetCookie";
+
 import "../styles/globals.css";
 import "../styles/index.css";
 
@@ -32,6 +34,7 @@ export default function MyApp(props) {
                     <SnackbarProvider autoHideDuration={2000}>
                         <CssBaseline />
                         <Component {...pageProps} />
+                        <GetCookie />
                     </SnackbarProvider>
                 </ThemeProvider>
             </StoreProvider>

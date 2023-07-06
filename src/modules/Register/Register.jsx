@@ -7,7 +7,8 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { collection, addDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 import { db } from "../../firebase/firebaseConfig";
 import logo from "../../../public/logo.png";
@@ -75,6 +76,9 @@ const Register = () => {
     const handlePassword = (e) => {
         setUserData({ ...userData, password: e.target.value });
     };
+
+    const uid = useSelector((state) => state.user.value);
+    if (uid) router.push("/");
 
     return (
         <Box sx={{ display: "flex", width: "100%", height: "100vh" }}>
