@@ -9,18 +9,23 @@ import {
     useScrollTrigger,
     IconButton,
     Backdrop,
-    Divider,
     Fade,
     Drawer,
-    Switch
+    Switch,
+    Tooltip,
+    Avatar,
+    Menu,
+    MenuItem
 } from "@mui/material";
-import { SearchOutlined, KeyboardArrowUp } from "@mui/icons-material";
+import { SearchOutlined, KeyboardArrowUp, LogoutOutlined } from "@mui/icons-material";
+import Cookies from "js-cookie";
 
 import logo from "../../../public/logo.png";
 import Typography from "../Typography/Typography";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { themePreferences } from "../../redux/features/themeSlice";
+import { userData } from "../../redux/features/userSlice";
 
 const homeData = [
     { title: "Home", link: "/" },
@@ -34,6 +39,7 @@ const homeData = [
 const NavBar = () => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
+    const [anchorElUser, setAnchorElUser] = useState(null);
     const { asPath } = useRouter();
     const [prior, setPrior] = useState(false);
     const trigger = useScrollTrigger({
@@ -42,6 +48,7 @@ const NavBar = () => {
     });
 
     const mode = useSelector((state) => state.theme.value);
+    const uid = useSelector((state) => state.user.value);
 
     const handleTheme = () => {
         dispatch(themePreferences(!mode));
@@ -54,6 +61,20 @@ const NavBar = () => {
                 setPrior(false);
             }, 500);
     }, [open]);
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+    const openUser = Boolean(anchorElUser);
+
+    const handleLogout = () => {
+        setAnchorElUser(null);
+        Cookies.remove("uid");
+        dispatch(userData(""));
+    };
 
     return (
         <>
@@ -75,31 +96,51 @@ const NavBar = () => {
 
                 <ThemeSwitch checked={mode} onChange={handleTheme} />
 
-                <Box sx={{ display: "flex" }}>
-                    <Link href="/register">
-                        <Button
-                            bgcolor="transparent"
-                            sx={{
-                                borderColor: "transparent",
-                                color: "var(--palette-03)",
-                                "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
-                            }}>
-                            Register
-                        </Button>
-                    </Link>
-                    <Link href="/login">
-                        <Button
-                            bgcolor="transparent"
-                            sx={{
-                                borderColor: "var(--palette-03)",
-                                color: "var(--palette-03)",
-                                minWidth: "6rem",
-                                "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
-                            }}>
-                            Sign In
-                        </Button>
-                    </Link>
-                </Box>
+                {!uid ? (
+                    <Box sx={{ display: "flex" }}>
+                        <Link href="/register">
+                            <Button
+                                bgcolor="transparent"
+                                sx={{
+                                    borderColor: "transparent",
+                                    color: "var(--palette-03)",
+                                    "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
+                                }}>
+                                Register
+                            </Button>
+                        </Link>
+                        <Link href="/login">
+                            <Button
+                                bgcolor="transparent"
+                                sx={{
+                                    borderColor: "var(--palette-03)",
+                                    color: "var(--palette-03)",
+                                    minWidth: "6rem",
+                                    "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
+                                }}>
+                                Log In
+                            </Button>
+                        </Link>
+                    </Box>
+                ) : (
+                    <>
+                        <Tooltip title="Profile">
+                            <Avatar src={null} alt="Avatar" onClick={handleOpenUserMenu} sx={{ cursor: "pointer" }} />
+                        </Tooltip>
+
+                        <StyledUserMenu
+                            keepMounted
+                            anchorEl={anchorElUser}
+                            open={openUser}
+                            onClick={handleCloseUserMenu}
+                            onClose={handleCloseUserMenu}>
+                            <MenuItem onClick={handleLogout}>
+                                <LogoutOutlined />
+                                Logout
+                            </MenuItem>
+                        </StyledUserMenu>
+                    </>
+                )}
             </AppBarDesktop>
 
             <Fade in={trigger && !open}>
@@ -333,5 +374,34 @@ const ThemeSwitch = styled(Switch)(({ theme }) => ({
         opacity: 1,
         backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
         borderRadius: 20 / 2
+    }
+}));
+
+const StyledUserMenu = styled((props) => (
+    <Menu
+        elevation={0}
+        anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left"
+        }}
+        transformOrigin={{
+            vertical: "top",
+            horizontal: "left"
+        }}
+        disableScrollLock={true}
+        {...props}
+    />
+))(({ theme }) => ({
+    "& .MuiPaper-root": {
+        borderRadius: "15px",
+        boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.3)",
+        "& .MuiMenu-list": {
+            padding: "0.5rem 0",
+            width: "180px"
+        }
+    },
+    marginTop: "1.25rem",
+    [theme.breakpoints.down("md")]: {
+        marginTop: "0.5rem"
     }
 }));
