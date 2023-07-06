@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { db } from "../../firebase/firebaseConfig";
 import logo from "../../../public/logo.png";
 import { Button, Carousel, Typography } from "../../components";
+import { userData as userDataRedux } from "../../redux/features/userSlice";
 
 const Login = () => {
     const router = useRouter();
@@ -69,6 +70,7 @@ const Login = () => {
                 router.push("/");
             }, 1000);
             if (tick) Cookies.set("uid", uid, { expires: 7 });
+            else dispatch(userDataRedux(uid));
         }
     };
 
