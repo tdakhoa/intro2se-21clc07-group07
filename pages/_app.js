@@ -10,7 +10,7 @@ import { Provider as StoreProvider } from "react-redux";
 import theme from "../src/theme";
 import { store } from "../src/redux/store";
 import createEmotionCache from "../src/createEmotionCache";
-import GetCookie from "../src/cookies/getCookie";
+import GetCookie from "../src/cookies/GetCookie";
 
 import "../styles/globals.css";
 import "../styles/index.css";
