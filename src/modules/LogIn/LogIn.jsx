@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Box, Checkbox, FormControlLabel, FormGroup, Grid, Snackbar, TextField, styled } from "@mui/material";
 import { LockOutlined, MailOutlineOutlined } from "@mui/icons-material";
 import Image from "next/image";
@@ -9,13 +9,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { collection, getDocs } from "firebase/firestore";
 import Cookies from "js-cookie";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { db } from "../../firebase/firebaseConfig";
 import logo from "../../../public/logo.png";
 import { Button, Carousel, Typography } from "../../components";
+import { userData as userDataRedux } from "../../redux/features/userSlice";
 
 const Login = () => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const [tick, setTick] = useState(false);
     const [valid, setValid] = useState(null);
@@ -69,6 +71,7 @@ const Login = () => {
                 router.push("/");
             }, 1000);
             if (tick) Cookies.set("uid", uid, { expires: 7 });
+            else dispatch(userDataRedux(uid));
         }
     };
 

@@ -38,6 +38,7 @@ const homeData = [
 
 const NavBar = () => {
     const dispatch = useDispatch();
+    const router = useRouter();
     const [open, setOpen] = useState(false);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const { asPath } = useRouter();
@@ -74,6 +75,7 @@ const NavBar = () => {
         setAnchorElUser(null);
         Cookies.remove("uid");
         dispatch(userData(""));
+        router.push("/login");
     };
 
     return (
