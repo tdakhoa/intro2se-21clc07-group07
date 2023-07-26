@@ -25,7 +25,7 @@ const LatestEpisodes = () => {
                     </Box>
                     <Button
                         bgcolor="transparent"
-                        endIcon={<ChevronRight sx={{ fontSize: "16px", marginLeft: "4px" }} />}
+                        endIcon={<ChevronRight sx={{ fontSize: "20px", marginLeft: "4px" }} />}
                         sx={{
                             textTransform: "uppercase",
                             borderColor: "#fff",
@@ -33,7 +33,8 @@ const LatestEpisodes = () => {
                             fontSize: "16px",
                             "&:hover": {
                                 borderColor: "#fff",
-                                color: "#fff"
+                                backgroundColor: "#fff",
+                                color: "#000"
                             }
                         }}>
                         See All

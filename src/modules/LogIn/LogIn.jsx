@@ -84,7 +84,7 @@ const Login = () => {
                     <Carousel listData={dataList} />
                 </Box>
                 <Box sx={{ width: "65%", textAlign: "center" }}>
-                    <Typography component="h6" size="h6" color="white" weight="semiBold">
+                    <Typography component="h6" size="h6" color="white" weight="regular">
                         Nice to see you again
                     </Typography>
                     <Typography
@@ -95,7 +95,7 @@ const Login = () => {
                         sx={{ fontFamily: "Fairplay", lineHeight: "4.5rem" }}>
                         Welcome Back
                     </Typography>
-                    <Typography component="h6" size="h6" color="white" weight="semiBold" sx={{ marginTop: "1.5rem" }}>
+                    <Typography component="h6" size="h6" color="white" weight="regular" sx={{ marginTop: "1.5rem" }}>
                         Whether you've been keeping up with our latest episodes or it's been a while since you last
                         visited, we're excited to have you back in our podcasting community.
                     </Typography>
@@ -170,10 +170,10 @@ const Login = () => {
                             <FormGroup>
                                 <FormControlLabel
                                     control={<PWTick value={tick} onChange={handleTick} />}
-                                    label="Remember me?"
+                                    label={<Typography size="14px">Remember me</Typography>}
                                 />
                             </FormGroup>
-                            <Typography>Forgot password?</Typography>
+                            <Typography size="14px">Forgot password?</Typography>
                         </TickBox>
                     </Grid>
 

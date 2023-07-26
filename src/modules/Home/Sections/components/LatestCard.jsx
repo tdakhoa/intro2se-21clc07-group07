@@ -24,7 +24,7 @@ const LatestCard = ({ type, title, img, date }) => {
                         label={type}
                         size="small"
                     />
-                    <TitleTypo component="h1" size="18px" weight="extraBold">
+                    <TitleTypo component="h1" size="18px" weight="bold">
                         {title}
                     </TitleTypo>
                     <Typography component="p" size="tiny" sx={{ marginTop: "0.4rem", color: "#929292" }}>
@@ -42,12 +42,7 @@ const StyledCardMedia = styled(CardMedia)(({ theme }) => ({
     position: "relative",
     width: "100%",
     height: "100%",
-    borderRadius: "6px",
-    "&:hover": {
-        "& .MuiBox-root": {
-            visibility: "visible"
-        }
-    }
+    borderRadius: "6px"
 }));
 
 const ArticleBox = styled("div")(({ theme }) => ({
@@ -72,7 +67,10 @@ const GridCard = styled(Grid)(({ theme }) => ({
     padding: "0.7rem",
     "&:hover": {
         boxShadow: "0px 0px 30px rgba(255, 255, 255, 0.5)",
-        cursor: "pointer"
+        cursor: "pointer",
+        "& .MuiBox-root": {
+            visibility: "visible"
+        }
     },
     [theme.breakpoints.between("sm", "md")]: {
         height: "28rem",
