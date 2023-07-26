@@ -34,7 +34,7 @@ const Hero = () => {
                         component="h6"
                         size="h6"
                         color="white"
-                        weight="light"
+                        weight="regular"
                         sx={{ width: { xs: "80%", md: "100%" }, marginTop: "2rem" }}>
                         Podaholic - Where listening becomes an enriching experience. Explore our collection of
                         thought-provoking podcasts that will challenge your thinking, spark meaningful discussions, and
@@ -88,8 +88,8 @@ const Overlay = styled(Box)(({ theme }) => ({
     "& .hero-introduction": {
         position: "absolute",
         top: "25%",
-        right: "30%",
-        width: "40%",
+        right: "25%",
+        width: "50%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
