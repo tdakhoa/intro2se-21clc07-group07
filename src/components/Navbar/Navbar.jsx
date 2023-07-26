@@ -96,8 +96,6 @@ const NavBar = () => {
                     </StyledNavItem>
                 </StyledNavContainer>
 
-                <ThemeSwitch checked={mode} onChange={handleTheme} />
-
                 {!uid ? (
                     <Box sx={{ display: "flex" }}>
                         <Link href="/register">
@@ -269,8 +267,7 @@ const StyledNavItem = styled(Box, {
     maxWidth: "10rem",
     padding: "1rem 0",
     "& .MuiTypography-root": {
-        textTransform: "uppercase",
-        fontSize: "1rem",
+        fontSize: "18px",
         whiteSpace: "pre-line",
         textAlign: "center",
         height: "100%",

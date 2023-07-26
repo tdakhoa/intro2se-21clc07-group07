@@ -1,6 +1,6 @@
 import React from "react";
 import { styled, Box } from "@mui/material";
-import { ArrowDownwardOutlined, PlayArrowOutlined } from "@mui/icons-material";
+import { ArrowDownwardOutlined, PlayArrow, PlayArrowOutlined } from "@mui/icons-material";
 
 import { Button, Carousel, Typography } from "../../../components";
 
@@ -16,26 +16,26 @@ const Hero = () => {
                 <Box className="hero-introduction">
                     <Typography
                         component="h1"
-                        size="h1"
+                        size="86px"
                         color="white"
                         weight="extraBold"
-                        sx={{ fontFamily: "Fairplay" }}>
+                        sx={{ fontFamily: "Fairplay", lineHeight: "1.1" }}>
                         Listen, learn,
                     </Typography>
                     <Typography
                         component="h1"
-                        size="h1"
+                        size="86px"
                         color="white"
                         weight="extraBold"
-                        sx={{ fontFamily: "Fairplay" }}>
+                        sx={{ fontFamily: "Fairplay", lineHeight: "1.1" }}>
                         and be inspired!
                     </Typography>
                     <Typography
                         component="h6"
-                        size="p"
+                        size="h6"
                         color="white"
                         weight="light"
-                        sx={{ width: { xs: "80%", md: "100%" } }}>
+                        sx={{ width: { xs: "80%", md: "100%" }, marginTop: "2rem" }}>
                         Podaholic - Where listening becomes an enriching experience. Explore our collection of
                         thought-provoking podcasts that will challenge your thinking, spark meaningful discussions, and
                         leave you inspired.
@@ -44,12 +44,12 @@ const Hero = () => {
                         bgcolor="transparent"
                         txcolor="white"
                         sx={{
-                            marginTop: { xs: "0.4rem", md: "1.4rem" },
+                            marginTop: { xs: "0.4rem", md: "2rem" },
                             padding: { xs: "0.5rem", md: "0.5rem 1rem" },
-                            "&:hover": { borderColor: "#fff", color: "#fff" }
+                            "&:hover": { borderColor: "#fff", backgroundColor: "#fff", color: "black" }
                         }}
                         onClick={handleScroll}
-                        endIcon={<PlayArrowOutlined sx={{ fontSize: "1.2rem" }} />}>
+                        endIcon={<PlayArrow sx={{ fontSize: "1.2rem" }} />}>
                         <Typography
                             size="p"
                             color="inherit"

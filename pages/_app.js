@@ -14,6 +14,7 @@ import GetCookie from "../src/cookies/GetCookie";
 
 import "../styles/globals.css";
 import "../styles/index.css";
+import Snackbar from "../src/components/Snackbar/Snackbar";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -35,6 +36,7 @@ export default function MyApp(props) {
                         <CssBaseline />
                         <Component {...pageProps} />
                         <GetCookie />
+                        <Snackbar />
                     </SnackbarProvider>
                 </ThemeProvider>
             </StoreProvider>

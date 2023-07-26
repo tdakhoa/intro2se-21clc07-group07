@@ -15,6 +15,7 @@ import { db } from "../../firebase/firebaseConfig";
 import logo from "../../../public/logo.png";
 import { Button, Carousel, Typography } from "../../components";
 import { userData as userDataRedux } from "../../redux/features/userSlice";
+import { snackbarData } from "../../redux/features/snackbarSlice";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -28,14 +29,6 @@ const Login = () => {
 
     const handleTick = () => {
         setTick(!tick);
-    };
-
-    const [success, setSuccess] = useState(false);
-    const handleCloseSuccess = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-        setSuccess(false);
     };
 
     const {
@@ -65,8 +58,8 @@ const Login = () => {
         if (!username) setValid("Email/Username is not existed");
         else if (!exist) setValid("Password is not correct");
         else {
+            dispatch(snackbarData("Login successfully!"));
             setValid(null);
-            setSuccess(true);
             setTimeout(function () {
                 router.push("/");
             }, 1000);
@@ -202,15 +195,6 @@ const Login = () => {
                     </Grid>
                 </Grid>
             </FormBox>
-            <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                open={success}
-                autoHideDuration={3000}
-                onClose={handleCloseSuccess}>
-                <Alert onClose={handleCloseSuccess} severity="success" sx={{ width: "100%" }}>
-                    Login Successfully!
-                </Alert>
-            </Snackbar>
         </Box>
     );
 };

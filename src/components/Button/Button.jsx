@@ -57,7 +57,7 @@ const MyButton = styled(MuiButton)((props) => ({
             : props.txcolor === "white"
             ? "2px solid var(--palette-06)"
             : `2px solid ${props.txcolor}`,
-    fontFamily: "Nunito",
+    fontFamily: "Open Sans",
     "&:hover": {
         backgroundColor: "transparent",
         borderWidth: "2px",
