@@ -84,7 +84,7 @@ const Login = () => {
                     <Carousel listData={dataList} />
                 </Box>
                 <Box sx={{ width: "65%", textAlign: "center" }}>
-                    <Typography component="h6" size="h6" color="white" weight="regular">
+                    <Typography component="h6" size="18px" color="white" weight="semiBold">
                         Nice to see you again
                     </Typography>
                     <Typography
@@ -95,7 +95,7 @@ const Login = () => {
                         sx={{ fontFamily: "Fairplay", lineHeight: "4.5rem" }}>
                         Welcome Back
                     </Typography>
-                    <Typography component="h6" size="h6" color="white" weight="regular" sx={{ marginTop: "1.5rem" }}>
+                    <Typography component="h6" size="18px" color="white" weight="regular" sx={{ marginTop: "1.5rem" }}>
                         Whether you've been keeping up with our latest episodes or it's been a while since you last
                         visited, we're excited to have you back in our podcasting community.
                     </Typography>
@@ -260,7 +260,8 @@ const StyledSignUpButton = styled(Button)(({ theme }) => ({
     textTransform: "capitalize",
     backgroundColor: "var(--palette-01)",
     "&:hover": {
-        backgroundColor: "var(--palette-02)"
+        backgroundColor: "var(--palette-02)",
+        color: "#fff"
     }
 }));
 
