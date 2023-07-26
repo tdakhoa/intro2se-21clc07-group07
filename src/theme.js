@@ -17,21 +17,21 @@ const theme = createTheme({
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    fontFamily: "Nunito"
+                    fontFamily: "Open Sans"
                 }
             }
         },
         MuiMenuItem: {
             styleOverrides: {
                 root: {
-                    fontFamily: "Nunito"
+                    fontFamily: "Open Sans"
                 }
             }
         },
         MuiListSubheader: {
             styleOverrides: {
                 root: {
-                    fontFamily: "Nunito"
+                    fontFamily: "Open Sans"
                 }
             }
         },

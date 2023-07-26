@@ -11,7 +11,12 @@ const Host = () => {
             <Box sx={{ height: "110vh", backgroundColor: "#212121", color: "#fff", padding: "5%" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "end" }}>
                     <Box>
-                        <Typography component="h1" size="h6" transform="uppercase" weight="medium">
+                        <Typography
+                            component="h1"
+                            size="h6"
+                            transform="uppercase"
+                            weight="medium"
+                            sx={{ letterSpacing: "3.6px" }}>
                             Explore our
                         </Typography>
                         <Typography component="h1" size="h2" weight="semiBold" sx={{ fontFamily: "Playfair" }}>
@@ -20,12 +25,12 @@ const Host = () => {
                     </Box>
                     <Button
                         bgcolor="transparent"
-                        endIcon={<ChevronRight sx={{ fontSize: "var(--text-h4)", marginLeft: "1rem" }} />}
+                        endIcon={<ChevronRight sx={{ fontSize: "16px", marginLeft: "4px" }} />}
                         sx={{
                             textTransform: "uppercase",
                             borderColor: "#fff",
                             padding: "0.75rem 1rem 0.75rem 1.5rem",
-                            fontSize: "var(--text-h6)",
+                            fontSize: "16px",
                             "&:hover": {
                                 borderColor: "#fff",
                                 color: "#fff"
