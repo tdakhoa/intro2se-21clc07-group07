@@ -93,7 +93,7 @@ const Register = () => {
                     <Carousel listData={dataList} />
                 </Box>
                 <Box sx={{ width: "65%", textAlign: "center" }}>
-                    <Typography component="h6" size="h6" color="white" weight="regular">
+                    <Typography component="h6" size="18px" color="white" weight="semiBold">
                         New journey is waiting for you
                     </Typography>
                     <Typography
@@ -104,7 +104,7 @@ const Register = () => {
                         sx={{ fontFamily: "Fairplay", lineHeight: "4.5rem" }}>
                         Nice To Meet You
                     </Typography>
-                    <Typography component="h6" size="h6" color="white" weight="regular" sx={{ marginTop: "1.5rem" }}>
+                    <Typography component="h6" size="18px" color="white" weight="regular" sx={{ marginTop: "1.5rem" }}>
                         Whether you're seeking inspiration, seeking answers to life's big questions, or simply looking
                         to expand your horizons, our podcast is your gateway to a world of fascinating discoveries.
                     </Typography>

@@ -104,6 +104,7 @@ const NavBar = () => {
                                 sx={{
                                     borderColor: "transparent",
                                     color: "var(--palette-03)",
+                                    fontSize: "18px",
                                     "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
                                 }}>
                                 Register
@@ -116,6 +117,7 @@ const NavBar = () => {
                                     borderColor: "var(--palette-03)",
                                     color: "var(--palette-03)",
                                     minWidth: "6rem",
+                                    fontSize: "18px",
                                     "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
                                 }}>
                                 Log In
