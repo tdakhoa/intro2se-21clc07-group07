@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Link,
-} from "@mui/material";
+import { Box, Typography, Link, useMediaQuery } from "@mui/material";
 import logo from "../../../public/logo_footer.png";
 import Image from "next/image";
-import social from "../../../public/SocialMediaButtons.png"
+import social from "../../../public/SocialMediaButtons.png";
 
 const Footer = () => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const sz = isMobile ? 250 : 400;
   return (
     <Box
       sx={{
@@ -17,24 +15,24 @@ const Footer = () => {
         backgroundColor: "black",
         padding: "3rem",
         justifyContent: "space-between",
-        width: "500",
+        width: "100%",
       }}
     >
       {/* Top */}
       <Box
         sx={{
           display: "flex",
+          flexDirection: { xs:"column",xl: "row", sm: "column" },
           justifyContent: "space-between",
           gap: "1.5rem",
           backgroundColor: "black",
         }}
       >
         {/* Company section */}
-        <Box sx={{ width: 300 }}>
-          <Image src={logo} width={300}></Image>
-          <Typography color="white" paddingLeft={1}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil odio
-            eum hic.
+        <Box sx={{ width: {sm:300,xl:400},position:"relative"}}>
+          <Image src={logo}  width={sz} ></Image>
+          <Typography color="white" paddingLeft={0.5} paddingBottom={1}>
+            Lorem ipsum is simply dummy text of the printing and typesetting industry
           </Typography>
         </Box>
         {/* Link section */}
@@ -42,10 +40,11 @@ const Footer = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            gap: "10rem",
+            gap: {xs:"5rem",xl:"12rem",sm:"2rem"},
+            flexWrap:{xs:"wrap"},
           }}
         >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", justifyContent:"space-between" }}>
             <Typography color={"white"}>USEFUL LINK</Typography>
             <Link href="#" sx={{ textDecoration: "none", color: "white" }}>
               Link
@@ -63,7 +62,7 @@ const Footer = () => {
               Link
             </Link>
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", justifyContent:"space-between", gap:1  }}>
             <Typography color={"white"}>USEFUL LINK</Typography>
             <Link href="#" sx={{ textDecoration: "none", color: "white" }}>
               Link
@@ -81,7 +80,7 @@ const Footer = () => {
               Link
             </Link>
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", flexDirection: "column", justifyContent:"space-between"  }}>
             <Typography color={"white"}>USEFUL LINK</Typography>
             <Link href="#" sx={{ textDecoration: "none", color: "white" }}>
               Link
@@ -99,7 +98,7 @@ const Footer = () => {
               Link
             </Link>
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", flexDirection: "column",justifyContent:"space-between" }}>
             <Typography color={"white"}>USEFUL LINK</Typography>
             <Link href="#" sx={{ textDecoration: "none", color: "white" }}>
               Link
@@ -135,19 +134,24 @@ const Footer = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          paddingLeft:"1"
+          paddingLeft: "1",
         }}
       >
         <Typography color="white">@Copyright by </Typography>
-        <Box sx={{display:"flex",gap:"1.5rem"}}>
-          <Link href="https://www.facebook.com/"><Image src={social}></Image></Link>
-          <Link href="#"><Image src={social}></Image></Link>
-          <Link href="#"><Image src={social}></Image></Link>
+        <Box sx={{ display: "flex", gap: "1.5rem" }}>
+          <Link href="https://www.facebook.com/">
+            <Image src={social}></Image>
+          </Link>
+          <Link href="#">
+            <Image src={social}></Image>
+          </Link>
+          <Link href="#">
+            <Image src={social}></Image>
+          </Link>
         </Box>
       </Box>
     </Box>
   );
 };
-
 
 export default Footer;
