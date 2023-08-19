@@ -92,7 +92,7 @@ const Register = () => {
                 <Box sx={{ position: "absolute", zIndex: -999, height: "100%", width: "50%" }}>
                     <Carousel listData={dataList} />
                 </Box>
-                <Box sx={{ width: "65%", textAlign: "center" }}>
+                <Box sx={{ width: "68%", textAlign: "center" }}>
                     <Typography component="h6" size="18px" color="white" weight="semiBold">
                         New journey is waiting for you
                     </Typography>
@@ -101,7 +101,7 @@ const Register = () => {
                         size="h1"
                         color="white"
                         weight="extraBold"
-                        sx={{ fontFamily: "Fairplay", lineHeight: "4.5rem" }}>
+                        sx={{ fontFamily: "Playfair Display", lineHeight: "4.5rem" }}>
                         Nice To Meet You
                     </Typography>
                     <Typography component="h6" size="18px" color="white" weight="regular" sx={{ marginTop: "1.5rem" }}>
@@ -117,7 +117,7 @@ const Register = () => {
                     weight="extraBold"
                     color="#fff"
                     align="center"
-                    sx={{ fontFamily: "Fairplay", marginBottom: "1rem" }}>
+                    sx={{ fontFamily: "Playfair Display", marginBottom: "1rem" }}>
                     Register
                 </Typography>
                 <Grid container sx={{ gap: "0.5rem" }}>
@@ -224,7 +224,13 @@ const Register = () => {
                         <ButtonBox>
                             <Typography sx={{ color: "#fff" }}>Already have an account?</Typography>
                             <Link href="/login">
-                                <Typography component="h2" weight="semiBold" sx={{ color: "var(--palette-02)" }}>
+                                <Typography
+                                    component="h2"
+                                    weight="semiBold"
+                                    sx={{
+                                        color: "var(--palette-02)",
+                                        "&:hover": { color: "var(--palette-02-hover)" }
+                                    }}>
                                     Log In
                                 </Typography>
                             </Link>
@@ -311,7 +317,7 @@ const StyledSignUpButton = styled(Button)(({ theme }) => ({
     width: "100%",
     backgroundColor: "var(--palette-01)",
     "&:hover": {
-        backgroundColor: "var(--palette-02)"
+        backgroundColor: "var(--palette-01-hover)"
     }
 }));
 

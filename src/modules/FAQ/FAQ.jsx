@@ -1,12 +1,7 @@
 import React from "react";
-import Layout from "../Layout";
 
 const FAQ = () => {
-    return (
-        <Layout>
-            <div>FAQ</div>
-        </Layout>
-    );
+    return <div>FAQ</div>;
 };
 
 export default FAQ;
