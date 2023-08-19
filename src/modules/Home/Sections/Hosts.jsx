@@ -19,7 +19,7 @@ const Host = () => {
                             sx={{ letterSpacing: "3.6px" }}>
                             Explore our
                         </Typography>
-                        <Typography component="h1" size="h2" weight="semiBold" sx={{ fontFamily: "Playfair" }}>
+                        <Typography component="h1" size="h2" weight="semiBold" sx={{ fontFamily: "Playfair Display" }}>
                             Popular Hosts
                         </Typography>
                     </Box>

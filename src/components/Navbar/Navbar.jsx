@@ -29,6 +29,7 @@ import { userData } from "../../redux/features/userSlice";
 
 const homeData = [
     { title: "Home", link: "/" },
+    { title: "Premium", link: "/premium" },
     { title: "Podcasts", link: "/podcasts" },
     { title: "Playlists", link: "/playlists" },
     { title: "Hosts", link: "/hosts" },
@@ -92,7 +93,7 @@ const NavBar = () => {
                         <NavItem trigger={trigger} key={i} content={item} asPath={asPath}></NavItem>
                     ))}
                     <StyledNavItem trigger={trigger} sx={{ "&:before": { bottom: "-10px" } }}>
-                        <SearchOutlined />
+                        <SearchOutlined sx={{ "&:hover": { color: "var(--palette-03)" } }} />
                     </StyledNavItem>
                 </StyledNavContainer>
 
@@ -104,8 +105,8 @@ const NavBar = () => {
                                 sx={{
                                     borderColor: "transparent",
                                     color: "var(--palette-03)",
-                                    fontSize: "18px",
-                                    "&:hover": { borderColor: "transparent", color: "var(--palette-03)" }
+                                    fontSize: "16px",
+                                    "&:hover": { borderColor: "transparent", color: "var(--palette-02)" }
                                 }}>
                                 Register
                             </Button>
@@ -117,8 +118,8 @@ const NavBar = () => {
                                     borderColor: "var(--palette-03)",
                                     color: "var(--palette-03)",
                                     minWidth: "6rem",
-                                    fontSize: "18px",
-                                    "&:hover": { borderColor: "var(--palette-03)", color: "var(--palette-03)" }
+                                    fontSize: "16px",
+                                    "&:hover": { borderColor: "var(--palette-02)", color: "var(--palette-02)" }
                                 }}>
                                 Log In
                             </Button>
@@ -162,7 +163,11 @@ const NavItem = ({ content = { title: "", link: "" }, sx = {}, trigger, asPath, 
                 <Typography
                     component="h1"
                     weight="semiBold"
-                    sx={{ color: asPath === content.link ? "var(--palette-03)" : "#fff" }}>
+                    size="16px !important"
+                    sx={{
+                        color: asPath === content.link ? "var(--palette-03)" : "#fff",
+                        "&:hover": { color: "var(--palette-03)" }
+                    }}>
                     {content.title}
                 </Typography>
             </Link>

@@ -147,7 +147,7 @@ const Typography = ({
     component = "p",
     color = "inherit",
     size,
-    weight,
+    weight = "regular",
     transform = "none",
     align,
     sx = {},

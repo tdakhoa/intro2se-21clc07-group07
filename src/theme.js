@@ -35,11 +35,6 @@ const theme = createTheme({
                 }
             }
         },
-        MuiPagination: {
-            styleOverrides: {
-                root: {}
-            }
-        },
         MuiChip: {
             styleOverrides: {
                 root: {}
@@ -50,6 +45,15 @@ const theme = createTheme({
                 root: {
                     "& .MuiInputLabel-root": {
                         color: "rgba(255, 255, 255, 0.70)"
+                    }
+                }
+            }
+        },
+        MuiRadio: {
+            styleOverrides: {
+                root: {
+                    "&.Mui-checked": {
+                        color: "var(--palette-03)"
                     }
                 }
             }
