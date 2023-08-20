@@ -37,6 +37,24 @@ const FAQ = () => {
                         <Search />
                     </SearchBox>
                 </Box>
+                <CenterBox>
+                    <Typography
+                        size="h3"
+                        weight="bold"
+                        align="center"
+                        color="#000"
+                        sx={{ fontFamily: "Playfair Display", whiteSpace: "pre-line" }}>
+                        We{"'"}re here to answer!{"\n"}If you don{"'"}t see your question, drop us a line!
+                    </Typography>
+                    <Button
+                        bgcolor="primary"
+                        sx={{ marginTop: { xs: "0.5rem", md: "1.4rem" }, display: "flex", padding: "1rem 1.5rem" }}
+                        endIcon={<ArrowDownwardOutlined sx={{ fontSize: "1.2rem", paddingLeft: "0.2rem" }} />}>
+                        <Typography size="p" weight="semiBold">
+                            Ask new question
+                        </Typography>
+                    </Button>
+                </CenterBox>
             </Box>
         </Layout>
     );
