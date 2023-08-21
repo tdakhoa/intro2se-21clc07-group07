@@ -92,7 +92,7 @@ const Login = () => {
                         size="h1"
                         color="white"
                         weight="extraBold"
-                        sx={{ fontFamily: "Fairplay", lineHeight: "4.5rem" }}>
+                        sx={{ fontFamily: "Playfair Display", lineHeight: "4.5rem" }}>
                         Welcome Back
                     </Typography>
                     <Typography component="h6" size="18px" color="white" weight="regular" sx={{ marginTop: "1.5rem" }}>
@@ -108,7 +108,7 @@ const Login = () => {
                     weight="extraBold"
                     color="#fff"
                     align="center"
-                    sx={{ fontFamily: "Fairplay", marginBottom: "1rem" }}>
+                    sx={{ fontFamily: "Playfair Display", marginBottom: "1rem" }}>
                     Log In
                 </Typography>
                 <Grid container sx={{ gap: "0.5rem" }}>
@@ -187,7 +187,13 @@ const Login = () => {
                         <ButtonBox>
                             <Typography sx={{ color: "#fff" }}>Don’t have an account?</Typography>
                             <Link href="/register">
-                                <Typography component="h2" weight="semiBold" sx={{ color: "var(--palette-02)" }}>
+                                <Typography
+                                    component="h2"
+                                    weight="semiBold"
+                                    sx={{
+                                        color: "var(--palette-02)",
+                                        "&:hover": { color: "var(--palette-02-hover)" }
+                                    }}>
                                     Register
                                 </Typography>
                             </Link>
@@ -260,7 +266,7 @@ const StyledSignUpButton = styled(Button)(({ theme }) => ({
     textTransform: "capitalize",
     backgroundColor: "var(--palette-01)",
     "&:hover": {
-        backgroundColor: "var(--palette-02)",
+        backgroundColor: "var(--palette-01-hover)",
         color: "#fff"
     }
 }));

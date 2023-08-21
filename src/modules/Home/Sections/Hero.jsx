@@ -19,7 +19,7 @@ const Hero = () => {
                         size="86px"
                         color="white"
                         weight="extraBold"
-                        sx={{ fontFamily: "Fairplay", lineHeight: "1.1" }}>
+                        sx={{ fontFamily: "Playfair Display", lineHeight: "1.1" }}>
                         Listen, learn,
                     </Typography>
                     <Typography
@@ -27,7 +27,7 @@ const Hero = () => {
                         size="86px"
                         color="white"
                         weight="extraBold"
-                        sx={{ fontFamily: "Fairplay", lineHeight: "1.1" }}>
+                        sx={{ fontFamily: "Playfair Display", lineHeight: "1.1" }}>
                         and be inspired!
                     </Typography>
                     <Typography
