@@ -143,6 +143,108 @@ const FAQ = () => {
 
 export default FAQ;
 
+const Root = styled(Box)(({ theme }) => ({
+    margin: "0 5%"
+}));
+
+const SearchBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderRadius: "10px",
+    padding: "1.5rem 2rem",
+    cursor: "pointer",
+    backgroundColor: "#fff",
+    color: "#6C6C6C",
+    width: "40%",
+    [theme.breakpoints.down("md")]: {
+        marginLeft: theme.spacing(1),
+        width: "100%"
+    }
+}));
+
+const CenterBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    margin: "5% 0%",
+    padding: "3% 0%",
+    backgroundColor: "var(--palette-04)",
+    [theme.breakpoints.down("md")]: {
+        padding: "1.5rem 0rem",
+        marginBottom: "3rem"
+    }
+}));
+
+const QuestionGrid = styled(Grid)(({ theme }) => ({
+    padding: "1.5rem 2.5rem",
+    margin: "2rem 0 3.5rem",
+    backgroundColor: "var(--palette-04)",
+    color: "#000",
+    borderRadius: "10px",
+    [theme.breakpoints.down("md")]: {
+        margin: "1rem 0rem",
+        padding: "1rem"
+    }
+}));
+
+const AccordionBox = styled(Box)(({ theme }) => ({
+    width: "50%",
+    margin: "1.5rem 0rem",
+    [theme.breakpoints.down("md")]: {
+        width: "100%"
+    }
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: "inherit",
+    width: "100%",
+    paddingRight: "0.5rem",
+    "& .MuiInputBase-root": {
+        width: "100%"
+    },
+    "& ::placeholder": {
+        fontFamily: "Nunito",
+        color: "rgba(0,0,0)"
+    }
+}));
+
+const MyTabs = styled(Tabs)(() => ({
+    "& .MuiTabs-flexContainer": {
+        gap: "1rem"
+    },
+    "& .MuiTabs-indicator": {
+        display: "none"
+    },
+    "& .MuiTab-root, .Mui-disabled": {
+        padding: "0.6rem 2rem ",
+        borderRadius: 999,
+        textTransform: "initial",
+        fontFamily: "'Nunito', sans-serif",
+        fontWeight: 700,
+        fontSize: "1rem",
+        border: "1px solid var(--palette-02)",
+        color: "var(--palette-02)"
+    },
+    "& .Mui-selected": {
+        border: "none",
+        background: "linear-gradient(90deg, #176076 0.04%, rgba(23, 96, 118, 0.5) 99.96%)",
+        color: "white !important"
+    }
+}));
+
+const PaginationBox = styled(Box)(({ theme }) => ({
+    justifyContent: "center",
+    color: "#fff",
+    [theme.breakpoints.down("md")]: {
+        right: "0",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        paddingTop: "0.5rem"
+    }
+}));
 
 export const questionsData = [
     {
