@@ -255,3 +255,38 @@ const CenterBox = styled(Box)(({ theme }) => ({
         marginBottom: "3rem"
     }
 }));
+
+
+// ------------------------------------CAROUSEL------------------------------------
+
+const imgLinks = [
+    "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+];
+
+const CarouselItem = styled(Box)(({ theme }) => ({
+    height: "100%",
+    display: "flex",
+    alignItems: "stretch",
+    backgroundColor: "red",
+    "& img": {
+        objectFit: "cover !important"
+    }
+}));
+
+const Highlighter = styled("span")(({ theme }) => ({
+    color: "var(--palette-03)",
+    fontWeight: 700
+}));
+
+const dataList = imgLinks.map((link, i) => (
+    <CarouselItem key={i}>
+        <img style={{ transform: "scaleX(-1)" }} alt="" src={link} />
+    </CarouselItem>
+));
+
+const perks = ["Unlimited access", "High throughput", "Quick support", "Preview podcast", "No ads"];
+const plans = [
+    { title: "One-month", price: "7.00", save: "30" },
+    { title: "Six-month", price: "5.50", save: "40" },
+    { title: "One-year", price: "4.00", save: "50" }
+];
