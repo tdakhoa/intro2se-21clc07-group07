@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { InputBase, styled, Box, Grid, Pagination, Tabs, useTheme, useMediaQuery } from "@mui/material";
 import { ArrowDownwardOutlined, Search } from "@mui/icons-material";
@@ -140,7 +139,7 @@ const FAQ = () => {
             </Box>
         </Layout>
     );
-
+};
 export default FAQ;
 
 const Root = styled(Box)(({ theme }) => ({
