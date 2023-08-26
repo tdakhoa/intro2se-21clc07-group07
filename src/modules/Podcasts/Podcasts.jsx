@@ -230,7 +230,18 @@ const Podcasts = () => {
                     </Box>
                 </Box>
             </Box>
-            
+            {/* Section 3 */}
+            <Box sx={{display:"flex",flexDirection:"row",justifyContent:"space-between", backgroundColor:"#212121",padding: { xs: "0rem 1rem", md: "0% 4%" }}}>
+                <Box sx={{paddingTop:"10rem",width:"50%"}}>
+                    <Typography sx={{color:"white",fontSize:"1.125rem"}}>WANT TO</Typography> 
+                    <Typography sx={{color:"white",fontSize:"3.5rem",fontFamily:"Playfair Display"}}>Get Our Newsletter</Typography>
+                    <Typography sx={{color:"white",fontSize:"1rem"}}>Get notified about updates and be the first to get early access to new episodes.</Typography>
+                </Box>
+                <Box sx={{paddingTop:"15rem", width:"50%"}}>
+                <TextField paddingTop="10rem" fullWidth label="Enter your email here" id="fullWidth" variant="filled" />
+
+                </Box>
+            </Box>
 
         </Layout>
     );
