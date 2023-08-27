@@ -43,6 +43,7 @@ const Login = () => {
         let exist = false;
         let username = false;
         let uid = "";
+        let premium = false;
 
         docSnap.forEach((doc) => {
             let i = doc.data();
@@ -50,6 +51,7 @@ const Login = () => {
                 username = true;
                 if (i.password === userData.password) {
                     uid = doc.id;
+                    premium = i.premium;
                     exist = true;
                 }
             }
@@ -64,11 +66,11 @@ const Login = () => {
                 router.push("/");
             }, 1000);
             if (tick) Cookies.set("uid", uid, { expires: 7 });
-            else dispatch(userDataRedux(uid));
+            else dispatch(userDataRedux({ uid: uid, premium: premium }));
         }
     };
 
-    const uid = useSelector((state) => state.user.value);
+    const { uid } = useSelector((state) => state.user);
     if (uid) router.push("/");
 
     return (

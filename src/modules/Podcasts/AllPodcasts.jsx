@@ -1,48 +1,59 @@
 import { Box, Grid } from "@mui/material";
-import React from "react";
-import { ChevronRight } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
 
-import { Button, Typography } from "../../../components";
-import LatestCard from "./components/LatestCard";
+import { Typography } from "../../components";
+import LatestCard from "../Home/Sections/components/LatestCard";
+import Layout from "../Layout";
+import { getStorage, ref, listAll } from "firebase/storage";
+import { useDispatch, useSelector } from "react-redux";
+import { themePreferences } from "../../redux/features/themeSlice";
+import { useRouter } from "next/router";
 
-const LatestEpisodes = () => {
+const AllPodcasts = () => {
+    const [data, setData] = useState([]);
+    const router = useRouter();
+
+    const getData = () => {
+        const storage = getStorage();
+        const listRef = ref(storage, "");
+        let mergeData = [];
+        listAll(listRef).then((res) => {
+            res.items.forEach((itemRef, i) => {
+                let min = Math.ceil(0);
+                let max = Math.floor(cardData.length - 1);
+                let randomIndex = Math.floor(Math.random() * (max - min + 1) + min);
+                mergeData.push({
+                    ...cardData[randomIndex],
+                    title: itemRef.name.slice(0, itemRef.name.length - 4),
+                    data: {
+                        currentSong: itemRef.name,
+                        title: itemRef.name.slice(0, itemRef.name.length - 4),
+                        artist: cardData[randomIndex].data.artist
+                    }
+                });
+            });
+
+            setData(mergeData);
+        });
+    };
+
+    useEffect(() => {
+        getData();
+    }, [router.asPath]);
+
     return (
-        <>
-            <Box sx={{ height: "80vh", backgroundColor: "#212121", color: "#fff", padding: "5%" }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "end" }}>
+        <Layout>
+            <Box sx={{ minHeight: "100vh", backgroundColor: "#212121", color: "#fff", padding: "8%" }}>
+                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "end" }}>
                     <Box>
-                        <Typography
-                            component="h1"
-                            size="h6"
-                            transform="uppercase"
-                            weight="medium"
-                            sx={{ letterSpacing: "3.6px" }}>
-                            Explore our
-                        </Typography>
-                        <Typography component="h1" size="h2" weight="semiBold" sx={{ fontFamily: "Playfair Display" }}>
-                            Latest Episodes
+                        <Typography component="h1" size="h1" weight="semiBold" sx={{ fontFamily: "Playfair Display" }}>
+                            All Podcasts
                         </Typography>
                     </Box>
-                    <Button
-                        bgcolor="transparent"
-                        endIcon={<ChevronRight sx={{ fontSize: "20px", marginLeft: "4px" }} />}
-                        sx={{
-                            textTransform: "uppercase",
-                            borderColor: "#fff",
-                            padding: "0.75rem 1rem 0.75rem 1.5rem",
-                            fontSize: "16px",
-                            "&:hover": {
-                                borderColor: "#fff",
-                                backgroundColor: "#fff",
-                                color: "#000"
-                            }
-                        }}>
-                        See All
-                    </Button>
                 </Box>
 
                 <Grid container spacing={6}>
-                    {cardData.map((item, i) => (
+                    {data.map((item, i) => (
                         <Grid item xs={3} key={i}>
                             <LatestCard
                                 type={item.type}
@@ -55,11 +66,11 @@ const LatestEpisodes = () => {
                     ))}
                 </Grid>
             </Box>
-        </>
+        </Layout>
     );
 };
 
-export default LatestEpisodes;
+export default AllPodcasts;
 
 const cardData = [
     {

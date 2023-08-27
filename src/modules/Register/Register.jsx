@@ -19,7 +19,8 @@ const Register = () => {
     const [userData, setUserData] = useState({
         username: "",
         email: "",
-        password: ""
+        password: "",
+        premium: false
     });
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null);
@@ -77,7 +78,7 @@ const Register = () => {
         setUserData({ ...userData, password: e.target.value });
     };
 
-    const uid = useSelector((state) => state.user.value);
+    const { uid } = useSelector((state) => state.user);
     if (uid) router.push("/");
 
     return (

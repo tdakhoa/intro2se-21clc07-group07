@@ -3,12 +3,11 @@ import React from "react";
 import { ChevronRight } from "@mui/icons-material";
 
 import { Button, Typography } from "../../../components";
-import DragDrop from "./components/DragDrop";
 
 const Host = () => {
     return (
         <>
-            <Box sx={{ height: "110vh", backgroundColor: "#212121", color: "#fff", padding: "5%" }}>
+            <Box sx={{ height: "95vh", backgroundColor: "#212121", color: "#fff", padding: "5%" }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "end" }}>
                     <Box>
                         <Typography
@@ -92,7 +91,7 @@ const cardData = [
         img: "https://images.unsplash.com/photo-1642257834579-eee89ff3e9fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80"
     },
     {
-        title: "Olawale Munna",
-        img: "https://images.unsplash.com/photo-1642257834579-eee89ff3e9fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=871&q=80"
+        title: "Roxanne Zadis",
+        img: "https://images.unsplash.com/photo-1445053023192-8d45cb66099d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
     }
 ];

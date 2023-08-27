@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Box, styled, RadioGroup, FormControlLabel, Radio, Checkbox, TextField } from "@mui/material";
+import { CheckBoxOutlined, WorkspacePremiumOutlined } from "@mui/icons-material";
+
 import Layout from "../../Layout";
 import { Button, Typography } from "../../../components";
-
-import { Box, styled, RadioGroup, FormControlLabel, Radio, Checkbox, TextField } from "@mui/material";
-import * as Yup from "yup";
-import { CheckBoxOutlined, CheckRounded, WorkspacePremiumOutlined } from "@mui/icons-material";
-import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { db } from "../../../firebase/firebaseConfig";
+import { doc, updateDoc } from "firebase/firestore";
+import { userData } from "../../../redux/features/userSlice";
 
 const Checkout = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
+    const { uid } = useSelector((state) => state.user);
 
     const [option, setOption] = useState(0);
     const [data, setData] = useState({
@@ -27,17 +32,25 @@ const Checkout = () => {
     };
 
     const handleApply = () => {
-        if (code.length > 0) {
+        if (code == "PODAHOLIC") {
             setDiscount(0.1);
-        }
+        } else setCode("INVALID");
     };
 
     const handleCodeChange = (e) => {
-        setCode(e.target.value);
+        setCode(e.target.value.toUpperCase());
         setDiscount(0);
     };
 
-    const handleSubmit = () => {};
+    const handleSubmit = async () => {
+        if (data.first == "" || data.second == "") router.push("/checkout/failed");
+        else {
+            const ref = doc(db, "users", uid);
+            await updateDoc(ref, { premium: true });
+            router.push("/checkout/success");
+            dispatch(userData({ uid: uid, premium: true }));
+        }
+    };
 
     let plan;
     switch (router.asPath.slice(10, router.asPath.length)) {
@@ -135,7 +148,7 @@ const Checkout = () => {
                             </Box>
 
                             <CheckoutButton variant="contained" onClick={handleSubmit}>
-                                Pay ${(plan.price * 1.1).toFixed(3)}
+                                Pay ${(plan.price * (1 - discount) * 1.1).toFixed(2)}
                             </CheckoutButton>
                         </>
                     ) : (
@@ -184,7 +197,7 @@ const Checkout = () => {
                             </Box>
 
                             <CheckoutButton variant="contained" onClick={handleSubmit}>
-                                Pay ${(plan.price * 1.1).toFixed(3)}
+                                Pay ${(plan.price * (1 - discount) * 1.1).toFixed(2)}
                             </CheckoutButton>
                         </>
                     ) : (
@@ -211,6 +224,9 @@ const Checkout = () => {
                                 Account's Premium Status will be updated after 5-10 minutes after the transaction
                                 completed
                             </Typography>
+                            <CheckoutButton variant="contained" onClick={handleSubmit}>
+                                Finish Checkout
+                            </CheckoutButton>
                         </>
                     ) : (
                         <></>
@@ -302,10 +318,12 @@ const Checkout = () => {
                             <Typography weight="semiBold" color="#fff">
                                 Total
                             </Typography>
-                            <Typography color="#fff">Including ${(plan.price * 0.1).toFixed(2)} in taxes</Typography>
+                            <Typography color="#fff">
+                                Including ${(plan.price * (1 - discount) * 0.1).toFixed(2)} in taxes
+                            </Typography>
                         </Box>
                         <Typography weight="regular" size="h6" color="#fff">
-                            ${(plan.price * 1.1).toFixed(2)}
+                            ${(plan.price * (1 - discount) * 1.1).toFixed(2)}
                         </Typography>
                     </Box>
                 </Box>
@@ -360,24 +378,6 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }));
 
 const Genders = ["Card", "Bank", "Transfer"];
-
-const validationSchema = Yup.object().shape({
-    birthday: Yup.string().required("Birthday is required"),
-    username: Yup.string()
-        .required("Username is required")
-        .min(6, "Username must be at least 6 characters")
-        .max(20, "Username must not exceed 20 characters")
-        .matches(/^\w*$/, "Username must not include special chars"),
-    email: Yup.string().required("Email is required").email("Email is invalid"),
-    password: Yup.string()
-        .required("Password is required")
-        .min(6, "Password must be at least 6 characters")
-        .max(40, "Password must not exceed 40 characters"),
-    confirmPassword: Yup.string()
-        .required("Confirm Password is required")
-        .oneOf([Yup.ref("password"), null], "Confirm Password does not match"),
-    acceptTerms: Yup.bool().oneOf([true], "Accept Terms is required")
-});
 
 const plans = [
     { title: "One-month", price: "7.00" },

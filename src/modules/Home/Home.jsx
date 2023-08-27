@@ -11,6 +11,7 @@ const Home = () => {
             <LatestEpisodes />
             <Trending />
             <Hosts />
+            
         </Layout>
     );
 };

@@ -256,7 +256,6 @@ const CenterBox = styled(Box)(({ theme }) => ({
     }
 }));
 
-
 // ------------------------------------CAROUSEL------------------------------------
 
 const imgLinks = [

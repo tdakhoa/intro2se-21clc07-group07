@@ -17,7 +17,14 @@ import {
     Menu,
     MenuItem
 } from "@mui/material";
-import { SearchOutlined, KeyboardArrowUp, LogoutOutlined } from "@mui/icons-material";
+import {
+    SearchOutlined,
+    KeyboardArrowUp,
+    LogoutOutlined,
+    Diamond,
+    FileUploadOutlined,
+    UploadFileOutlined
+} from "@mui/icons-material";
 import Cookies from "js-cookie";
 
 import logo from "../../../public/logo.png";
@@ -30,9 +37,9 @@ import { userData } from "../../redux/features/userSlice";
 const homeData = [
     { title: "Home", link: "/" },
     { title: "Premium", link: "/premium" },
-    { title: "Podcasts", link: "/podcasts" },
-    { title: "Playlists", link: "/playlists" },
-    { title: "Hosts", link: "/hosts" },
+    { title: "Podcasts", link: "/allpodcasts" },
+    // { title: "Playlists", link: "/playlists" },
+    // { title: "Hosts", link: "/hosts" },
     { title: "About Us", link: "/aboutus" },
     { title: "FAQ", link: "/faq" }
 ];
@@ -50,7 +57,7 @@ const NavBar = () => {
     });
 
     const mode = useSelector((state) => state.theme.value);
-    const uid = useSelector((state) => state.user.value);
+    const { uid, premium } = useSelector((state) => state.user);
 
     const handleTheme = () => {
         dispatch(themePreferences(!mode));
@@ -90,7 +97,7 @@ const NavBar = () => {
 
                 <StyledNavContainer>
                     {homeData.map((item, i) => (
-                        <NavItem trigger={trigger} key={i} content={item} asPath={asPath}></NavItem>
+                        <NavItem trigger={trigger} key={i} content={item} asPath={asPath} uid={uid}></NavItem>
                     ))}
                     <StyledNavItem trigger={trigger} sx={{ "&:before": { bottom: "-10px" } }}>
                         <SearchOutlined sx={{ "&:hover": { color: "var(--palette-03)" } }} />
@@ -127,6 +134,14 @@ const NavBar = () => {
                     </Box>
                 ) : (
                     <>
+                        {premium ? (
+                            <Tooltip title="You're premium user">
+                                <Diamond sx={{ color: "yellow" }} />
+                            </Tooltip>
+                        ) : (
+                            <></>
+                        )}
+
                         <Tooltip title="Profile">
                             <Avatar src={null} alt="Avatar" onClick={handleOpenUserMenu} sx={{ cursor: "pointer" }} />
                         </Tooltip>
@@ -137,6 +152,10 @@ const NavBar = () => {
                             open={openUser}
                             onClick={handleCloseUserMenu}
                             onClose={handleCloseUserMenu}>
+                            <MenuItem onClick={() => router.push("/upload")}>
+                                <UploadFileOutlined />
+                                Upload
+                            </MenuItem>
                             <MenuItem onClick={handleLogout}>
                                 <LogoutOutlined />
                                 Logout
@@ -156,10 +175,10 @@ const NavBar = () => {
 };
 export default NavBar;
 
-const NavItem = ({ content = { title: "", link: "" }, sx = {}, trigger, asPath, ...props }) => {
+const NavItem = ({ content = { title: "", link: "" }, sx = {}, trigger, asPath, uid, ...props }) => {
     return (
         <StyledNavItem trigger={trigger} {...props}>
-            <Link href={content.link}>
+            <Link href={content.title == "Premium" && !uid ? "/login" : content.link}>
                 <Typography
                     component="h1"
                     weight="semiBold"
@@ -210,31 +229,11 @@ const StyledNavContainer = styled(Box)(({ theme }) => ({
     }
 }));
 
-const AppBarMobile = styled(Drawer, {
-    shouldForwardProp: (prop) => prop !== "prior" && prop !== "trigger"
-})(({ prior }) => ({
-    position: "fixed",
-    zIndex: prior ? 10002 : 0,
-    height: "100vh",
-    width: drawerWidth,
-    flexShrink: 0,
-    "& .MuiDrawer-paper": {
-        width: drawerWidth,
-        boxSizing: "border-box"
-    }
-}));
-
-const AppBarMobileHeader = styled(Box)(() => ({
-    display: "flex",
-    justifyContent: "space-between",
-    padding: "1rem"
-}));
-
 const ScrollTop = styled(IconButton)(() => ({
     color: "var(--palette-06)",
     backgroundColor: "#000",
     position: "fixed",
-    bottom: 25,
+    bottom: 75,
     right: 25,
     zIndex: 100000,
     boxShadow: "0px 0px 15px rgba(255,255,255,0.6)",
@@ -252,13 +251,6 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         display: "inline-flex"
     }
-}));
-
-const StyledBackdrop = styled(Backdrop)(({ theme }) => ({
-    color: "var(--palette-06)",
-    zIndex: 10002,
-    position: "fixed",
-    height: "100vh"
 }));
 
 const StyledNavItem = styled(Box, {
