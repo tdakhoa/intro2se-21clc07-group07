@@ -1,18 +1,19 @@
 import React from "react";
+
 import Layout from "../Layout";
-import pic from "../../../public/aboutus.png"
-import { Box, Avatar, Link,TextField } from "@mui/material";
+import Information from "./Sections/Information";
+import Contact from "./Sections/Contact";
+import Specialists from "./Sections/Specialists";
+import { Box } from "@mui/material";
+
 const AboutUs = () => {
     return (
         <Layout>
-            <Box
-            component="img"
-            sx={{height:233,width:350,}}
-            src={{pic}}
-            >
-
+            <Box sx={{ backgroundColor: "#212121" }}>
+                <Information />
+                <Contact />
+                <Specialists />
             </Box>
-
         </Layout>
     );
 };

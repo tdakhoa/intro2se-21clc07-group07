@@ -15,12 +15,17 @@ export default function GetCookie() {
         const docSnap = await getDocs(ref);
 
         let exist = false;
+        let premium = false;
+
         docSnap.forEach((doc) => {
-            if (doc.id === uid) exist = true;
+            if (doc.id === uid) {
+                premium = doc.data().premium;
+                exist = true;
+            }
         });
 
-        if (exist) dispatch(userData(uid));
-        else dispatch(userData(""));
+        if (exist) dispatch(userData({ uid: uid, premium: premium }));
+        else dispatch(userData({}));
     };
 
     useEffect(() => {

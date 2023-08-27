@@ -2,15 +2,26 @@ import { Box, CardMedia, Chip, Grid, styled } from "@mui/material";
 import { PlayCircle } from "@mui/icons-material";
 
 import { Typography } from "../../../../components";
+import { setActiveSong } from "../../../../redux/features/playerSlice";
+import { useDispatch } from "react-redux";
 
-const LatestCard = ({ type, title, img, date }) => {
+const LatestCard = ({ type, title, img, date, data }) => {
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(setActiveSong(data));
+    };
+
     return (
         <ArticleBox>
             <GridCard sx={{ border: "none" }} direction="column" container>
                 <Grid item xs={7} sx={{ width: "100%" }}>
                     <StyledCardMedia image={img} title="">
                         <Overlay>
-                            <PlayCircle sx={{ fontSize: "50px", position: "relative", zIndex: 2, color: "#fff" }} />
+                            <PlayCircle
+                                onClick={handleClick}
+                                sx={{ fontSize: "50px", position: "relative", zIndex: 2, color: "#fff" }}
+                            />
                         </Overlay>
                     </StyledCardMedia>
                 </Grid>

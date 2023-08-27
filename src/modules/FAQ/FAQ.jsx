@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { InputBase, styled, Box, Grid, Pagination, Tabs, useTheme, useMediaQuery } from "@mui/material";
+import { InputBase, styled, Box, Grid, Pagination, Tabs, useTheme, useMediaQuery, TextField } from "@mui/material";
 import { ArrowDownwardOutlined, Search } from "@mui/icons-material";
 
 import Layout from "../Layout";
 import { Button, QuestionAccordion, Typography } from "../../components";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
 const FAQ = () => {
     const theme = useTheme();
@@ -13,6 +15,16 @@ const FAQ = () => {
 
     const handlePageChange = (event, value) => {
         setPage(value);
+    };
+
+    const [question, setQuestion] = useState("");
+    const handleChange = (e) => {
+        setQuestion(e.target.value);
+    };
+    const onSubmit = async () => {
+        const ref = collection(db, "question");
+        await addDoc(ref, { question: question });
+        setQuestion("Sent!");
     };
 
     return (
@@ -136,14 +148,79 @@ const FAQ = () => {
                         </PaginationBox>
                     </Box>
                 </Root>
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        backgroundColor: "#212121",
+                        padding: { xs: "0rem 1rem", md: "4%" }
+                    }}>
+                    <Box sx={{ width: "50%" }}>
+                        <Typography sx={{ color: "white", fontSize: "1.125rem" }}>WANT TO</Typography>
+                        <Typography sx={{ color: "white", fontSize: "3.5rem", fontFamily: "Playfair Display" }}>
+                            Send Us Feedback?
+                        </Typography>
+                        <Typography sx={{ color: "white", fontSize: "1rem" }}>
+                            Enter your question so we can improve better
+                        </Typography>
+                    </Box>
+                    <Box sx={{ width: "50%", display: "flex", gap: "1rem" }}>
+                        <StyledTextField
+                            fullWidth
+                            label="Enter your question here"
+                            variant="outlined"
+                            value={question}
+                            onChange={handleChange}
+                        />
+                        <Button onClick={onSubmit} sx={{ width: "20%" }}>
+                            Send
+                        </Button>
+                    </Box>
+                </Box>
             </Box>
         </Layout>
     );
 };
+
 export default FAQ;
 
 const Root = styled(Box)(({ theme }) => ({
     margin: "0 5%"
+}));
+
+const StyledTextField = styled(TextField, {
+    shouldForwardProp: (prop) => prop !== "error"
+})(({ theme, error }) => ({
+    "& label.Mui-focused": {
+        color: "white"
+    },
+    "& .MuiInput-underline:after": {
+        borderBottomColor: "#000"
+    },
+    "& .MuiOutlinedInput-root": {
+        color: "white",
+        borderRadius: "8px",
+        "& fieldset": {
+            borderColor: "white"
+        },
+        "& ::placeholder": {
+            color: "white"
+        },
+        "&:hover fieldset": {
+            borderColor: "var(--palette-02)"
+        },
+        "&.Mui-focused fieldset": {
+            borderColor: "white"
+        }
+    },
+    position: error ? "relative" : "",
+    animation: error ? "shake .1s linear" : "initial",
+    animationIterationCount: error ? "3" : "initial",
+    "@keyframes shake": {
+        "0%": { left: "-5px" },
+        "100%": { right: "-5px" }
+    }
 }));
 
 const SearchBox = styled(Box)(({ theme }) => ({

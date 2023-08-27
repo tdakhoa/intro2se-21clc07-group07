@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { uid: "" };
+const initialState = { uid: "", premium: false };
 
 const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
         userData: (state, action) => {
-            state.value = action.payload;
+            state.uid = action.payload.uid;
+            state.premium = action.payload.premium;
         }
     }
 });

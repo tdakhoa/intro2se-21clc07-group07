@@ -35,8 +35,8 @@ export default function MyApp(props) {
                     <SnackbarProvider autoHideDuration={2000}>
                         <CssBaseline />
                         <Component {...pageProps} />
-                        <GetCookie />
                         <Snackbar />
+                        <GetCookie />
                     </SnackbarProvider>
                 </ThemeProvider>
             </StoreProvider>

@@ -1,11 +1,17 @@
 import { useState, useRef } from "react";
 
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../../../../firebase/firebaseConfig";
+import { storage } from "../../../firebase/firebaseConfig";
+import { Typography } from "../../../components";
+import { Box } from "@mui/material";
+import { useRouter } from "next/router";
+import { themePreferences } from "../../../redux/features/themeSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const DragDrop = () => {
     const [files, setFiles] = useState(null);
     const inputRef = useRef();
+    const router = useRouter();
 
     const handleDragOver = (event) => {
         event.preventDefault();
@@ -44,27 +50,42 @@ const DragDrop = () => {
                 });
             }
         );
+
+        setTimeout(function () {
+            router.push("/");
+        }, 1000);
     };
 
     if (files)
         return (
             <div className="uploads">
-                <ul></ul>
-                <div className="actions">
-                    <button onClick={() => setFiles(null)}>Cancel</button>
-                    <button onClick={handleUpload}>Upload</button>
-                </div>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <Typography color="#fff" size="h5">
+                        Upload Complete
+                    </Typography>
+                    <Box>
+                        <button onClick={() => setFiles(null)}>Cancel</button>
+                        <button onClick={handleUpload}>Upload</button>
+                    </Box>
+                </Box>
             </div>
         );
 
     return (
         <>
-            <div className="dropzone" onDragOver={handleDragOver} onDrop={handleDrop}>
-                <h1>Drag and Drop Files to Upload</h1>
-                <h1>Or</h1>
+            <Box
+                sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}>
+                <Typography weight="semiBold" color="#fff">
+                    Drag and Drop Files to Upload
+                </Typography>
+                <Typography weight="semiBold" color="#fff">
+                    Or
+                </Typography>
                 <input type="file" onChange={handleChange} hidden ref={inputRef} />
                 <button onClick={() => inputRef.current.click()}>Select Files</button>
-            </div>
+            </Box>
         </>
     );
 };
