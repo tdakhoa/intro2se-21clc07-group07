@@ -59,10 +59,6 @@ const NavBar = () => {
     const mode = useSelector((state) => state.theme.value);
     const { uid, premium } = useSelector((state) => state.user);
 
-    const handleTheme = () => {
-        dispatch(themePreferences(!mode));
-    };
-
     useEffect(() => {
         if (open) setPrior(true);
         else

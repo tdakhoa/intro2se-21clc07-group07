@@ -4,12 +4,18 @@ import { PlayCircle } from "@mui/icons-material";
 import { Typography } from "../../../../components";
 import { setActiveSong } from "../../../../redux/features/playerSlice";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
+import { setSong } from "../../../../redux/features/songSlice";
 
 const LatestCard = ({ type, title, img, date, data }) => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
         dispatch(setActiveSong(data));
+    };
+
+    const handleSong = () => {
+        dispatch(setSong(data));
     };
 
     return (
@@ -25,22 +31,24 @@ const LatestCard = ({ type, title, img, date, data }) => {
                         </Overlay>
                     </StyledCardMedia>
                 </Grid>
-                <Grid item xs={5} sx={{ color: "#000" }}>
-                    <Chip
-                        sx={{
-                            color: "var(--palette-01)",
-                            backgroundColor: "var(--palette-04)",
-                            margin: "1rem 0 0.5rem"
-                        }}
-                        label={type}
-                        size="small"
-                    />
-                    <TitleTypo component="h1" size="18px" weight="bold">
-                        {title}
-                    </TitleTypo>
-                    <Typography component="p" size="tiny" sx={{ marginTop: "0.4rem", color: "#929292" }}>
-                        {date}
-                    </Typography>
+                <Grid onClick={() => handleSong()} item xs={5} sx={{ color: "#000" }}>
+                    <Link href="/detail">
+                        <Chip
+                            sx={{
+                                color: "var(--palette-01)",
+                                backgroundColor: "var(--palette-04)",
+                                margin: "1rem 0 0.5rem"
+                            }}
+                            label={type}
+                            size="small"
+                        />
+                        <TitleTypo component="h1" size="18px" weight="bold">
+                            {title}
+                        </TitleTypo>
+                        <Typography component="p" size="tiny" sx={{ marginTop: "0.4rem", color: "#929292" }}>
+                            {date}
+                        </Typography>
+                    </Link>
                 </Grid>
             </GridCard>
         </ArticleBox>
