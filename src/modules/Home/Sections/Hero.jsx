@@ -6,6 +6,7 @@ import { Button, Carousel, Typography } from "../../../components";
 
 const Hero = () => {
     const handleScroll = () => {
+        //responsive moblie
         const element = document.getElementById("news");
         element?.scrollIntoView();
     };

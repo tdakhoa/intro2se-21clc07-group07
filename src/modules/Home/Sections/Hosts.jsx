@@ -6,6 +6,7 @@ import { Button, Typography } from "../../../components";
 import DragDrop from "./components/DragDrop";
 
 const Host = () => {
+    //responsive moblie
     return (
         <>
             <Box sx={{ height: "110vh", backgroundColor: "#212121", color: "#fff", padding: "5%" }}>

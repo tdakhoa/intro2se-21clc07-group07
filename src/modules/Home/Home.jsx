@@ -5,6 +5,7 @@ import Hosts from "./Sections/Hosts";
 
 const Home = () => {
     return (
+        //responsive moblie
         <Layout>
             <Hero />
             <LatestEpisodes />

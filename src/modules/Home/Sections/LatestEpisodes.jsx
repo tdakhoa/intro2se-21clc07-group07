@@ -6,6 +6,7 @@ import { Button, Typography } from "../../../components";
 import LatestCard from "./components/LatestCard";
 
 const LatestEpisodes = () => {
+    //responsive moblie
     return (
         <>
             <Box sx={{ height: "90vh", backgroundColor: "#212121", color: "#fff", padding: "5%" }}>
