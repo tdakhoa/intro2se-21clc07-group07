@@ -13,6 +13,7 @@ import SendIcon from "@mui/icons-material/Send";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
+import { useSelector } from "react-redux";
 
 const Podcasts = () => {
     const [question, setQuestion] = useState("");
@@ -24,6 +25,8 @@ const Podcasts = () => {
         await addDoc(ref, { email: question });
         setQuestion("Sent!");
     };
+
+    const { currentSong, title, artist } = useSelector((state) => state.song);
 
     return (
         <Layout>
@@ -50,7 +53,7 @@ const Podcasts = () => {
                     color="white"
                     weight="extraBold"
                     sx={{ fontFamily: "Playfair Display", lineHeight: "1.1", size: "86px", marginTop: "20px" }}>
-                    Embrace Life Journey Podcast
+                    {title}
                 </Typography>
                 <Box
                     sx={{
@@ -63,7 +66,7 @@ const Podcasts = () => {
                     }}>
                     <Avatar src={{ smallAva }} sx={{ height: 40, width: 40 }} />
                     <Typography weight="thin" color="white" paddingTop="4px">
-                        Jane Anderson
+                        {artist}
                     </Typography>
                     <Typography weight="thin" color="white" paddingTop="4px">
                         August 15, 2023
@@ -317,7 +320,7 @@ const Podcasts = () => {
                         <Box sx={{ display: "flex", flexDirection: "row" }}>
                             <Avatar src={{ smallAva }} sx={{ height: 40, width: 40 }} />
                             <Typography weight="thin" color="white" paddingTop="4px" paddingLeft="20px">
-                                Jane Anderson
+                                {artist}
                             </Typography>
                             <Typography weight="thin" color="white" paddingTop="4px" paddingLeft="20px">
                                 August 15, 2023
@@ -427,7 +430,7 @@ const Podcasts = () => {
                     }}>
                     <Avatar src={{ smallAva }} sx={{ height: 250, width: 250 }} />
                     <Typography sx={{ fontSize: "1.75rem", fontFamily: "Playfair Display", marginTop: "20px" }}>
-                        Jane Andrson
+                        {artist}
                     </Typography>
                     <Typography sx={{ fontSize: "1rem", weight: "400", textAlign: "center" }}>
                         Life is an intricate tapestry of moments waiting to be woven together with purpose.
